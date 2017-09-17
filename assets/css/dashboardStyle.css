@@ -12,3 +12,8 @@ body
 {
     white-space: normal;
 }
+
+#coins-display
+{
+	display: inline-block;
+}

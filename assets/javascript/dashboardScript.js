@@ -1,6 +1,8 @@
 userID = -1;
 var token = sessionStorage.getItem("userID");
 var newUser = false;
+var physicsTopicDisplay = $('#topic-display')
+var gambleAmountDisplay = $('#gamble-display')
 
 database.ref("users").once('value', function(snap)
 {
@@ -11,6 +13,7 @@ database.ref("users").once('value', function(snap)
 			userID = i;
 			$("#welcome").html(snap.val()[i].name)
 			newUser = snap.val()[i].new
+			$('#coins-display').html(snap.val()[i].coins)
 		}
 	}
 
@@ -23,10 +26,46 @@ database.ref("users").once('value', function(snap)
 	{
 		database.ref("users/"+userID).update(
 		{
-			coins: 324
+			coins: 10,
+			new: false
 		})
 
 		$('#newUserModal').modal('hide')
+	})
+})
+
+database.ref("users").on('value', function(snap)
+{
+	if (userID !== -1)
+	{
+		$('#coins-display').html(snap.val()[userID].coins)
+	}
+})
+
+$('#go-for-it').on('click', function(event)
+{
+	var topic = physicsTopicDisplay.html();
+	var gambleAmount = gambleAmountDisplay.html()
+	console.log(topic)
+	console.log(gambleAmount)
+
+	if (topic === "Pick a Topic" || gambleAmount === "Pick an Amount of Coins")
+	{
+		console.log("Not everything is specified. ")
+	}
+
+	var coins = 0;
+
+	database.ref("users/"+userID).once('value', function(snap)
+	{
+		coins = snap.val().coins;
+	})
+
+	coins = coins + 1;
+
+	database.ref("users/"+userID).update(
+	{
+		coins: coins
 	})
 })
 
@@ -45,29 +84,6 @@ database.ref("users").once('value', function(snap)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-var physicsTopicDisplay = $('#topic-display')
-var gambleAmountDisplay = $('#gamble-display')
-
 $('.physics-topic-button').on('click', function(event)
 {
 	var clicked = $(this).attr('clicked');
@@ -77,7 +93,7 @@ $('.physics-topic-button').on('click', function(event)
 	if (clicked === "false")
 	{
 		var text = $(this).html()
-		$(this).attr('class', 'btn btn-primary btn-lg btn-block physics-topic-button');
+		$(this).attr('class', 'btn btn-success btn-lg btn-block physics-topic-button');
 		$(this).attr('clicked', 'true');
 		physicsTopicDisplay.html(text)
 	}
@@ -100,7 +116,7 @@ $('.gamble-amount-button').on('click', function(event)
 	{
 		var text = $(this).html()
 		console.log(text)
-		$(this).attr('class', 'btn btn-primary btn-lg btn-block gamble-amount-button');
+		$(this).attr('class', 'btn btn-success btn-lg btn-block gamble-amount-button');
 		$(this).attr('clicked', 'true');
 		gambleAmountDisplay.html(text)
 	}
