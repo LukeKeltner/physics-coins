@@ -46,8 +46,6 @@ $('#go-for-it').on('click', function(event)
 {
 	var topic = physicsTopicDisplay.html();
 	var gambleAmount = gambleAmountDisplay.html()
-	console.log(topic)
-	console.log(gambleAmount)
 
 	if (topic === "Pick a Topic" || gambleAmount === "Pick an Amount of Coins")
 	{
@@ -115,7 +113,6 @@ $('.gamble-amount-button').on('click', function(event)
 	if (clicked === "false")
 	{
 		var text = $(this).html()
-		console.log(text)
 		$(this).attr('class', 'btn btn-success btn-lg btn-block gamble-amount-button');
 		$(this).attr('clicked', 'true');
 		gambleAmountDisplay.html(text)

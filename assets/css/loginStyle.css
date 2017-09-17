@@ -22,11 +22,17 @@ body
 
 #login-button
 {
-	margin-top: 20px;
+	
 }
 
 .register-alert
 {
 	margin-top: 20px;
 	display: none;
+}
+
+.login-alert
+{
+	margin-top: 20px;
+	
 }

@@ -1,6 +1,6 @@
 body
 {
-	margin-top: 90px;
+	margin-top: 50px;
 }
 
 .jumbo-test
@@ -16,4 +16,9 @@ body
 #coins-display
 {
 	display: inline-block;
+}
+
+.card
+{
+	margin-top: 30px;
 }

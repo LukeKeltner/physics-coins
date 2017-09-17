@@ -12,22 +12,11 @@ var createToken = function()
     return token;
 }
 
-$('#register').on('click', function(event)
+var validateEmail = function(email)
 {
-	var name = $('#register-name').val();
-	var email = $('#register-email').val().trim().toLowerCase();
-	var password1 = $('#register-password1').val().trim();
-	var password2 = $('#register-password2').val().trim();
-
-	var emailSplit = email.split("");
-	var address = emailSplit.slice(1).slice(-4)
-
-	var validName = false;
 	var validEmail = false;
 	var atSymbol = false;
 	var validAddress = false;
-	var validPassword = false;
-
 
 	var emailSplit = email.split("");
 	var addressArray = emailSplit.slice(1).slice(-4);
@@ -36,15 +25,6 @@ $('#register').on('click', function(event)
 	for (var i=0; i<addressArray.length; i++)
 	{
 		address = address + addressArray[i];
-	}
-
-	console.log(email)
-	console.log(emailSplit)
-	console.log(address)
-
-	if (name !== "")
-	{
-		validName = true;
 	}
 
 	for (var i=0; i<emailSplit.length; i++)
@@ -64,6 +44,59 @@ $('#register').on('click', function(event)
 	if (atSymbol && validAddress)
 	{
 		validEmail = true;
+	}
+
+	return validEmail;
+}
+
+$('#login').on('click', function(event)
+{
+	var email = $('#email-login').val().trim().toLowerCase();
+	var password = $('#password-login').val().trim();
+	var validEmail = validateEmail(email);
+
+	database.ref("users").once("value", function(snap)
+	{
+		for (var i=0; i<snap.val().length; i++)
+        {
+            if (snap.val()[i].email === email)
+            {
+            	if (password === snap.val()[i].password)
+            	{
+					var token = createToken()
+	                sessionStorage.setItem("userID", token);
+
+	                database.ref("users/"+i).update(
+	                {
+	                    token: token
+	                })
+
+	                window.location.href = 'dashboard.html';
+	                break;
+            	}
+            }
+        }
+	})
+})
+
+$('#register').on('click', function(event)
+{
+	var name = $('#register-name').val();
+	var email = $('#register-email').val().trim().toLowerCase();
+	var password1 = $('#register-password1').val().trim();
+	var password2 = $('#register-password2').val().trim();
+
+	var emailSplit = email.split("");
+	var address = emailSplit.slice(1).slice(-4)
+
+	var validName = false;
+	var validEmail = validateEmail(email)
+	var validPassword = false;
+
+
+	if (name !== "")
+	{
+		validName = true;
 	}
 
 	if (password1 === password2  && password1 !== "" && password2 !== "")
