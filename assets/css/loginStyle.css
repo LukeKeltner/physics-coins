@@ -20,9 +20,14 @@ body
     margin-right: auto;
 }
 
-#login-button
+#login
 {
-	
+	margin-top: 20px;
+}
+
+.login-alert
+{
+	margin-bottom: 0px;
 }
 
 .register-alert
@@ -34,5 +39,6 @@ body
 .login-alert
 {
 	margin-top: 20px;
+	display: none;
 	
 }

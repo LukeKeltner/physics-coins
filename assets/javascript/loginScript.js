@@ -74,6 +74,12 @@ $('#login').on('click', function(event)
 	                window.location.href = 'dashboard.html';
 	                break;
             	}
+
+            	else
+            	{
+            		$('.login-alert').show()
+            		$('#error-login').html("This User has a different password")
+            	}
             }
         }
 	})
