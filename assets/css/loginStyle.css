@@ -19,3 +19,14 @@ body
     margin-left: auto;
     margin-right: auto;
 }
+
+#login-button
+{
+	margin-top: 20px;
+}
+
+.register-alert
+{
+	margin-top: 20px;
+	display: none;
+}

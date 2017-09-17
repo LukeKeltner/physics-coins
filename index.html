@@ -19,12 +19,20 @@
 		<div class="row">
 
 			<div class="col-md-6">
-				<div class="card text-center">
-					<div class="card-header">
+				<div class="card">
+					<div class="card-header text-center">
 						Login
 					</div>
 					<div class="card-body">
-						<button type="button" class="btn btn-default btn-lg physics-topic-button" clicked="false">Login</button>
+
+						<label for="exampleInputEmail1">Email address</label>
+					    <input type="email" class="form-control" id="email-input" aria-describedby="emailHelp" placeholder="Enter email">
+					    <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+
+						<label for="exampleInputEmail1">Password</label>
+					    <input type="text" class="form-control" id="password-input" aria-describedby="emailHelp" placeholder="Enter Password">
+
+						<button type="button" class="btn btn-default physics-topic-button" id="login-button">Login</button>
 					</div>
 				</div>
 			</div>
@@ -32,17 +40,62 @@
 			<div class="col-md-6">
 				<div class="card text-center">
 					<div class="card-header">
-						Register
+						I'm new!
 					</div>
 					<div class="card-body">
-						<button type="button" class="btn btn-default btn-lg physics-topic-button" clicked="false">Register</button>
+						<button type="button" class="btn btn-default physics-topic-button" clicked="false" data-toggle="modal" data-target="#myModal">Register</button>
 					</div>
 				</div>
 			</div>
-
-
 		</div>
 	</div>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Lets Sign You Up!</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+      	<div class="form-group">
+
+			<label for="exampleInputEmail1">Name</label>
+			<input type="text" class="form-control" id="register-name" placeholder="Enter Your Name">
+
+			<label for="exampleInputEmail1">Email address</label>
+			<input type="email" class="form-control" id="register-email" aria-describedby="emailHelp" placeholder="Enter email">
+
+			<label for="exampleInputEmail1">Choose Password</label>
+			<input type="password" class="form-control" id="register-password1" placeholder="Enter Password">
+
+			<label for="exampleInputEmail1">Confirm Password</label>
+			<input type="password" class="form-control" id="register-password2" placeholder="Enter Password Again">
+
+			<div class="alert alert-danger register-alert" role="alert">
+				<strong>Ut oh...</strong><div id="error"></div>
+			</div>
+
+		</div>
+
+
+
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-defualt" data-dismiss="modal" id="close-register">Close</button>
+        <button type="button" class="btn btn-primary" id="register">Welcome!</button>
+      </div>
+    </div>
+  </div>
+</div>
 	
 	
 

@@ -8,10 +8,5 @@ var config =
     messagingSenderId: "379351599749"
   };
 
-  firebase.initializeApp(config);
+firebase.initializeApp(config);
 var database = firebase.database()
-
-database.ref("users").set(
-{
-    boop: 40
-})

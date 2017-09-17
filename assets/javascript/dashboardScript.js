@@ -1,3 +1,70 @@
+userID = -1;
+var token = sessionStorage.getItem("userID");
+var newUser = false;
+
+database.ref("users").once('value', function(snap)
+{
+	for (var i=0; i<snap.val().length; i++)
+	{
+		if (snap.val()[i].token === token)
+		{
+			userID = i;
+			$("#welcome").html(snap.val()[i].name)
+			newUser = snap.val()[i].new
+		}
+	}
+
+	if (newUser)
+	{
+		$('#newUserModal').modal('show')
+	}
+
+	$('#get-10-coins').on('click', function(event)
+	{
+		database.ref("users/"+userID).update(
+		{
+			coins: 324
+		})
+
+		$('#newUserModal').modal('hide')
+	})
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 var physicsTopicDisplay = $('#topic-display')
 var gambleAmountDisplay = $('#gamble-display')
 

@@ -47,6 +47,13 @@
 	<div class="container">
 		<div class="jumbotron text-center">
 			<div class="row">
+				<div class="col-md-12">
+					<h1>Welcome <span id="welcome"></span>!</h1>
+
+				</div>
+
+			</div>
+			<div class="row">
 				<div class="col-md-6">
 					<h1 id="coins-display">0</h1>
 				</div>
@@ -95,15 +102,59 @@
 		</div>
 
 	</div>
+
+
+
+
+
+
+
+
+
+
+
+<!-- New User Modal -->
+<div class="modal fade" id="newUserModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Welcome to Physics Coins!</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+		I see you're new to Physics Coins!  That's great to hear and welcome!  Here's what to know...
+		<br>
+		<ul>
+			<li>Pick a physics topic you'd like a multiple choice question about</li>
+			<li>Choose an amount of coins you'd like to gamble</li>
+			<li>If you get the question CORRECT you win double the amount of coins you gambled</li>
+			<li>If you get the quesiton INCORRECT you lose the amount of coins you gambled</li>
+		</ul>
+		<br>
+		Since you're new you don't have any coins!  Click below to get 10 coins on me
+
+
+
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" id="get-10-coins">Get 10 Coins</button>
+      </div>
+    </div>
+  </div>
+</div>
 	
 	
 
 
-	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
 	<script src="https://www.gstatic.com/firebasejs/4.3.1/firebase.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<script type="text/javascript" src="assets/javascript/firebase.js"></script>
 	<script type="text/javascript" src="assets/javascript/dashboardScript.js"></script>
 	<link href="assets/css/dashboardStyle.css" rel="stylesheet" />
