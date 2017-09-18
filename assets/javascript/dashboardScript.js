@@ -53,24 +53,6 @@ database.ref("users").on('value', function(snap)
 	}
 })
 
-$('#go-for-it').on('click', function(event)
-{
-	var topic = physicsTopicDisplay.html();
-	var gambleAmount = gambleAmountDisplay.html()
-
-	$('#questionModal').modal('show');
-	$('#question-topic').html(topic)
-	$('#gamble-amount').html(gambleAmount)
-
-	window.onunload = function()
-	{
-		database.ref("users/"+userID).update(
-		{
-			refreshed: true
-		})
-	}
-})
-
 $('.physics-topic-button').on('click', function(event)
 {
 	var gambleAmount = gambleAmountDisplay.html()
@@ -129,4 +111,38 @@ $('.gamble-amount-button').on('click', function(event)
 		gambleAmountDisplay.html("Pick an Amount of Coins")
 		$('#go-for-it').prop('disabled', true);
 	}
+})
+
+$('#go-for-it').on('click', function(event)
+{
+	var topic = physicsTopicDisplay.html();
+	var gambleAmount = gambleAmountDisplay.html()
+
+	$('#questionModal').modal('show');
+	$('#question-topic').html(topic)
+	$('#gamble-amount').html(gambleAmount)
+
+	window.onunload = function()
+	{
+		database.ref("users/"+userID).update(
+		{
+			refreshed: true
+		})
+	}
+
+	database.ref("questions/"+topic).once("value", function(snap)
+	{
+		var questionBank = snap.val()
+		var r = Math.floor(Math.random() * questionBank.length);
+		var answers = []
+
+		answers.push(questionBank[r].correct)
+		answers.push(questionBank[r].wrong[0])
+		answers.push(questionBank[r].wrong[1])
+		answers.push(questionBank[r].wrong[2])
+
+		console.log(answers)
+
+		console.log(questionBank[r])
+	})
 })
