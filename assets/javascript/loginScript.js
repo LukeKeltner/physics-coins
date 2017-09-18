@@ -54,15 +54,25 @@ $('#login').on('click', function(event)
 	var email = $('#email-login').val().trim().toLowerCase();
 	var password = $('#password-login').val().trim();
 	var validEmail = validateEmail(email);
+	var wrongEmail = true;
+	var validPassword = false;
+	var loggedIn = false;
 
 	database.ref("users").once("value", function(snap)
 	{
 		for (var i=0; i<snap.val().length; i++)
         {
+        	console.log(email+" and "+snap.val()[i].email)
+        	console.log(snap.val()[i].email === email)
+
             if (snap.val()[i].email === email)
             {
+            	wrongEmail = false;
+
             	if (password === snap.val()[i].password)
             	{
+            		validPassword = true;
+            		loggedIn = true;
 					var token = createToken()
 	                sessionStorage.setItem("userID", token);
 
@@ -76,12 +86,26 @@ $('#login').on('click', function(event)
             	}
 
             	else
-            	{
-            		$('.login-alert').show()
-            		$('#error-login').html("This User has a different password")
-            	}
+	            {
+	            	$('.login-alert').show()
+	            	$('#error-login').html("This User has a different password");
+	            	break;
+	            }
             }
         }
+        
+
+        if (validEmail && wrongEmail)
+        {
+            	$('.login-alert').show()
+            	$('#error-login').html("We don't have this email in our system.  Would you like to register?")            	
+            }
+
+        else if (!validEmail && wrongEmail)
+        {
+           	$('.login-alert').show()
+            $('#error-login').html("We don't recognize this as an email.")             	
+        }   
 	})
 })
 

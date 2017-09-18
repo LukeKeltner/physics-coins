@@ -84,7 +84,7 @@
 							<div class="col-md-6">
 								<h4>Topic: <span id="topic-display">Pick a Topic</span></h4>
 								<h4>Gamble: <span id="gamble-display">Pick an Amount of Coins</span></h4>
-								<button type="button" class="btn btn-success btn-lg" id="go-for-it">Go For It!</button>
+								<button type="button" class="btn btn-warning" id="go-for-it" disabled>Go For It!</button>
 							</div>
 
 						</div>
@@ -102,7 +102,7 @@
 					</div>
 					<div class="card-body">
 						<button type="button" class="btn btn-default btn-lg btn-block physics-topic-button" clicked="false">1D Kinamtics</button>
-						<button type="button" class="btn btn-default btn-lg btn-block physics-topic-button" clicked="false">Newton's Laws and Applications</button>
+						<button type="button" class="btn btn-default btn-lg btn-block physics-topic-button" clicked="false">Newton's Laws</button>
 						<button type="button" class="btn btn-default btn-lg btn-block physics-topic-button" clicked="false">2D Kinematics and Forces</button>
 						<button type="button" class="btn btn-default btn-lg btn-block physics-topic-button" clicked="false">Momentum</button>
 						<button type="button" class="btn btn-default btn-lg btn-block physics-topic-button" clicked="false">Energy</button>
@@ -161,11 +161,6 @@
 		</ul>
 		<br>
 		Since you're new you don't have any coins.  Click below to get 10 coins to get rolling!
-
-
-
-
-
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-success" id="get-10-coins">Get 10 Coins</button>
@@ -173,6 +168,55 @@
     </div>
   </div>
 </div>
+
+<!-- Question Modal -->
+<div class="modal fade bd-example-modal-lg" id="questionModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Question: <span id="question-topic"></span></h5>
+        <h5 class="modal-title">Gambling: <span id="gamble-amount"></span></h5>
+        </button>
+      </div>
+      <div class="modal-body">
+
+		<div class="row">
+			<div class="col-md-12">
+				<h5>Here is the text of the question.  It may be long or short depending.  Maybe there will be a picture involced as well, who knows, we'll have to see</h5>
+			</div>
+		</div>
+
+		<div class="row text-center">
+			<div class="col-md-6">
+				<button type="button" class="btn btn-default btn-block answer">A</button>
+			</div>
+
+			<div class="col-md-6">
+				<button type="button" class="btn btn-default btn-block answer">B</button>
+			</div>
+		</div>
+
+		<div class="row text-center">
+			<div class="col-md-6">
+				<button type="button" class="btn btn-default btn-block answer">C</button>
+			</div>
+
+			<div class="col-md-6">
+				<button type="button" class="btn btn-default btn-block answer">D</button>
+			</div>
+		</div>
+
+
+
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" id="get-10-coins">Submit</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 	
 	
 
