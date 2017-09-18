@@ -14,6 +14,17 @@ database.ref("users").once('value', function(snap)
 			$("#welcome").html(snap.val()[i].name)
 			newUser = snap.val()[i].new
 			$('#coins-display').html(snap.val()[i].coins)
+
+			if (snap.val()[i].refreshed)
+			{
+				alert("You just lost 10 coins!")
+				var newCoins = snap.val()[i].coins - 10;
+				database.ref("users/"+i).update(
+				{
+					refreshed: false,
+					coins: newCoins
+				})
+			}
 		}
 	}
 
@@ -50,41 +61,15 @@ $('#go-for-it').on('click', function(event)
 	$('#questionModal').modal('show');
 	$('#question-topic').html(topic)
 	$('#gamble-amount').html(gambleAmount)
-	$('#questionModal').modal(
+
+	window.onunload = function()
 	{
-		backdrop: 'static',
-		keyboard: false
-	})
-
-	var coins = 0;
-
-	database.ref("users/"+userID).once('value', function(snap)
-	{
-		coins = snap.val().coins;
-	})
-
-	coins = coins + 1;
-
-	database.ref("users/"+userID).update(
-	{
-		coins: coins
-	})
+		database.ref("users/"+userID).update(
+		{
+			refreshed: true
+		})
+	}
 })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 $('.physics-topic-button').on('click', function(event)
 {
