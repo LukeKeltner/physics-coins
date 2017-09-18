@@ -4,6 +4,7 @@ var newUser = false;
 var physicsTopicDisplay = $('#topic-display');
 var gambleAmountDisplay = $('#gamble-display');
 var choice = '';
+var freeze = false;
 
 var shuffleArray = function(array)
 {
@@ -18,6 +19,21 @@ var shuffleArray = function(array)
 	}		
 
 	return result
+}
+
+var updateGambleButtons = function(coins)
+{
+	var gamble1 = Math.floor(coins/10);
+	var gamble2 = Math.floor(coins/7);
+	var gamble3 = Math.floor(coins/3);
+	var gamble4 = Math.floor(coins/2);
+	var gamble5 = coins;
+
+	$('#gamble1').html(gamble1)
+	$('#gamble2').html(gamble2)
+	$('#gamble3').html(gamble3)
+	$('#gamble4').html(gamble4)
+	$('#gamble5').html(gamble5)
 }
 
 database.ref("users").once('value', function(snap)
@@ -40,6 +56,14 @@ database.ref("users").once('value', function(snap)
 					refreshed: false,
 					coins: newCoins
 				})
+
+				updateGambleButtons(newCoins)
+			}
+
+			else
+			{
+				var coins = snap.val()[userID].coins;
+				updateGambleButtons(coins);		
 			}
 		}
 	}
@@ -66,6 +90,9 @@ database.ref("users").on('value', function(snap)
 	if (userID !== -1)
 	{
 		$('#coins-display').html(snap.val()[userID].coins)
+
+		var coins = snap.val()[userID].coins;
+		updateGambleButtons(coins);
 	}
 })
 
@@ -192,38 +219,44 @@ $(document).on('click', '.answer', function(event)
 
 $('#submit').on('click', function(event)
 {
-	var gamble = 0;
-	var coins = 0;
-	var newCoins = 0;
-	database.ref("users/"+userID).once("value", function(snap)
+	if (!freeze)
 	{
-		gamble = snap.val().gamble
-		coins = snap.val().coins
-	})
+		var gamble = 0;
+		var coins = 0;
+		var newCoins = 0;
+		database.ref("users/"+userID).once("value", function(snap)
+		{
+			gamble = snap.val().gamble
+			coins = snap.val().coins
+		})
 
-	if (choice === "correct")
-	{
-		newCoins = coins + 2*gamble
-		console.log("You got it right!")
-		$('.clicked').attr('class', 'btn btn-success btn-block answer')
+		if (choice === "correct")
+		{
+			newCoins = coins + 2*gamble
+			console.log("You got it right!")
+			$('.clicked').attr('class', 'btn btn-success btn-block answer')
+		}
+
+		else
+		{
+			newCoins = coins - gamble
+			console.log("You are wrong!")
+			$('.clicked').attr('class', 'btn btn-danger btn-block answer')
+		}
+
+		database.ref("users/"+userID).update(
+		{
+			coins: newCoins
+		})
+
+		freeze = true;
+
+		setTimeout(function()
+		{
+			$('.answer').attr('class', 'btn btn-default btn-block answer')
+			$('#questionModal').modal('hide')
+			freeze = false;
+		}, 2000)
 	}
-
-	else
-	{
-		newCoins = coins - gamble
-		console.log("You are wrong!")
-		$('.clicked').attr('class', 'btn btn-danger btn-block answer')
-	}
-
-	database.ref("users/"+userID).update(
-	{
-		coins: newCoins
-	})
-
-	setTimeout(function()
-	{
-		$('.answer').attr('class', 'btn btn-default btn-block answer')
-		$('#questionModal').modal('hide')
-	}, 2000)
 
 })

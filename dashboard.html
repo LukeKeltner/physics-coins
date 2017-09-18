@@ -76,12 +76,18 @@
 					</div>
 					<div class="card-body">
 						<div class="row">
-							<div class="col-md-6">
+
+							<div class="col-md-4">
+								<button type="button" class="btn btn-warning btn-lg" id="history">History</button><br>
+								<button type="button" class="btn btn-warning btn-lg" id="leaderboard">Leaderboard</button>
+							</div>
+
+							<div class="col-md-4">
 								<img src="assets/images/coin.png" width="80" alt="">
 								<h1 id="coins-display">0</h1>
 							</div>
 
-							<div class="col-md-6">
+							<div class="col-md-4">
 								<h4>Topic: <span id="topic-display">Pick a Topic</span></h4>
 								<h4>Gamble: <span id="gamble-display">Pick an Amount of Coins</span></h4>
 								<button type="button" class="btn btn-warning" id="go-for-it" disabled>Go For It!</button>
@@ -116,11 +122,11 @@
 						Gamble
 					</div>
 					<div class="card-body">
-						<button type="button" class="btn btn-default btn-lg btn-block gamble-amount-button" clicked="false">10</button>
-						<button type="button" class="btn btn-default btn-lg btn-block gamble-amount-button" clicked="false">20</button>
-						<button type="button" class="btn btn-default btn-lg btn-block gamble-amount-button" clicked="false">30</button>
-						<button type="button" class="btn btn-default btn-lg btn-block gamble-amount-button" clicked="false">40</button>
-						<button type="button" class="btn btn-default btn-lg btn-block gamble-amount-button" clicked="false">50</button>
+						<button type="button" class="btn btn-default btn-lg btn-block gamble-amount-button" clicked="false" id="gamble1">10</button>
+						<button type="button" class="btn btn-default btn-lg btn-block gamble-amount-button" clicked="false" id="gamble2">20</button>
+						<button type="button" class="btn btn-default btn-lg btn-block gamble-amount-button" clicked="false" id="gamble3">30</button>
+						<button type="button" class="btn btn-default btn-lg btn-block gamble-amount-button" clicked="false" id="gamble4">40</button>
+						<button type="button" class="btn btn-default btn-lg btn-block gamble-amount-button" clicked="false" id="gamble5">50</button>
 					</div>
 				</div>
 			</div>
