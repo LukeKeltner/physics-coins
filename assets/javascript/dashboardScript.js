@@ -5,6 +5,8 @@ var physicsTopicDisplay = $('#topic-display');
 var gambleAmountDisplay = $('#gamble-display');
 var choice = '';
 var freeze = false;
+var correct = new Audio('assets/sounds/correct.mp3');
+var wrong = new Audio('assets/sounds/wrong.mp3');
 
 var shuffleArray = function(array)
 {
@@ -141,7 +143,7 @@ $('.gamble-amount-button').on('click', function(event)
 		$(this).attr('clicked', 'true');
 		gambleAmountDisplay.html(text)
 
-		if (topic !== "Pick an Amount of Coins")
+		if (topic !== "Pick a Topic")
 		{
 			$('#go-for-it').prop('disabled', false);
 		}
@@ -232,15 +234,21 @@ $('#submit').on('click', function(event)
 
 		if (choice === "correct")
 		{
+			correct.play()
 			newCoins = coins + 2*gamble
 			console.log("You got it right!")
+			$('.clicked').css("font-size", "80px")
+			$('.clicked').html("+"+2*gamble)
 			$('.clicked').attr('class', 'btn btn-success btn-block answer')
 		}
 
 		else
 		{
+			wrong.play()
 			newCoins = coins - gamble
 			console.log("You are wrong!")
+			$('.clicked').css("font-size", "80px")
+			$('.clicked').html("-"+gamble)
 			$('.clicked').attr('class', 'btn btn-danger btn-block answer')
 		}
 
@@ -254,6 +262,10 @@ $('#submit').on('click', function(event)
 		setTimeout(function()
 		{
 			$('.answer').attr('class', 'btn btn-default btn-block answer')
+			$('.gamble-amount-button').attr('class', 'btn btn-default btn-lg btn-block gamble-amount-button');
+			$('.gamble-amount-button').attr('clicked', 'false');
+			gambleAmountDisplay.html("Pick an Amount of Coins")
+			$('#go-for-it').prop('disabled', true);
 			$('#questionModal').modal('hide')
 			freeze = false;
 		}, 2000)
