@@ -183,15 +183,17 @@ $('#go-for-it').on('click', function(event)
 $(document).on('click', '.answer', function(event)
 {
 	$('.answer').attr('class', 'btn btn-default btn-block answer')
+	$('.answer').removeClass('clicked')
 	$(this).attr('class', 'btn btn-primary btn-block answer')
-	choice = $(this).attr('id') 
+	choice = $(this).attr('id')
+	$(this).addClass('clicked')
 	console.log(choice)
 })
 
 $('#submit').on('click', function(event)
 {
 	var gamble = 0;
-	var coins = 0
+	var coins = 0;
 	var newCoins = 0;
 	database.ref("users/"+userID).once("value", function(snap)
 	{
@@ -203,12 +205,14 @@ $('#submit').on('click', function(event)
 	{
 		newCoins = coins + 2*gamble
 		console.log("You got it right!")
+		$('.clicked').attr('class', 'btn btn-success btn-block answer')
 	}
 
 	else
 	{
 		newCoins = coins - gamble
 		console.log("You are wrong!")
+		$('.clicked').attr('class', 'btn btn-danger btn-block answer')
 	}
 
 	database.ref("users/"+userID).update(
@@ -216,5 +220,10 @@ $('#submit').on('click', function(event)
 		coins: newCoins
 	})
 
-	$('#questionModal').modal('hide')
+	setTimeout(function()
+	{
+		$('.answer').attr('class', 'btn btn-default btn-block answer')
+		$('#questionModal').modal('hide')
+	}, 2000)
+
 })
