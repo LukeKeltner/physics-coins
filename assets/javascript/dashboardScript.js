@@ -1,8 +1,24 @@
-userID = -1;
+var userID = -1;
 var token = sessionStorage.getItem("userID");
 var newUser = false;
-var physicsTopicDisplay = $('#topic-display')
-var gambleAmountDisplay = $('#gamble-display')
+var physicsTopicDisplay = $('#topic-display');
+var gambleAmountDisplay = $('#gamble-display');
+var choice = '';
+
+var shuffleArray = function(array)
+{
+	var result = []
+
+	for (var i=0; i<array.length; i++)
+	{
+		var r = Math.floor(Math.random()*array.length)
+		result.push(array[r])
+		array.splice(r, 1)
+		i = i - 1
+	}		
+
+	return result
+}
 
 database.ref("users").once('value', function(snap)
 {
@@ -118,10 +134,16 @@ $('#go-for-it').on('click', function(event)
 	var topic = physicsTopicDisplay.html();
 	var gambleAmount = gambleAmountDisplay.html()
 
+	database.ref("users/"+userID).update(
+	{
+		gamble: gambleAmount
+	})
+
 	$('#questionModal').modal('show');
 	$('#question-topic').html(topic)
 	$('#gamble-amount').html(gambleAmount)
 
+	console.log($('#questionModal').hasClass('hide'))
 	window.onunload = function()
 	{
 		database.ref("users/"+userID).update(
@@ -134,15 +156,65 @@ $('#go-for-it').on('click', function(event)
 	{
 		var questionBank = snap.val()
 		var r = Math.floor(Math.random() * questionBank.length);
-		var answers = []
 
-		answers.push(questionBank[r].correct)
-		answers.push(questionBank[r].wrong[0])
-		answers.push(questionBank[r].wrong[1])
-		answers.push(questionBank[r].wrong[2])
+		$('#question-text').html(questionBank[r].question)
 
-		console.log(answers)
+		buttons = []
+		var button1 = $("<button type='button' class='btn btn-default btn-block answer' id='correct'></button>")
+		button1.html(questionBank[r].correct)
+		buttons.push(button1)
 
-		console.log(questionBank[r])
+		for (var i=0; i<3; i++)
+		{
+			var button = $("<button type='button' class='btn btn-default btn-block answer' id='wrong'></button>")
+			button.html(questionBank[r].wrong[i])
+			buttons.push(button)
+		}
+
+		buttons = shuffleArray(buttons)
+
+		$('#question1Div').html(buttons[0])
+		$('#question2Div').html(buttons[1])
+		$('#question3Div').html(buttons[2])
+		$('#question4Div').html(buttons[3])
 	})
+})
+
+$(document).on('click', '.answer', function(event)
+{
+	$('.answer').attr('class', 'btn btn-default btn-block answer')
+	$(this).attr('class', 'btn btn-primary btn-block answer')
+	choice = $(this).attr('id') 
+	console.log(choice)
+})
+
+$('#submit').on('click', function(event)
+{
+	var gamble = 0;
+	var coins = 0
+	var newCoins = 0;
+	database.ref("users/"+userID).once("value", function(snap)
+	{
+		gamble = snap.val().gamble
+		coins = snap.val().coins
+	})
+
+	if (choice === "correct")
+	{
+		newCoins = coins + 2*gamble
+		console.log("You got it right!")
+	}
+
+	else
+	{
+		newCoins = coins - gamble
+		console.log("You are wrong!")
+	}
+
+	database.ref("users/"+userID).update(
+	{
+		coins: newCoins
+	})
+
+	$('#questionModal').modal('hide')
 })
