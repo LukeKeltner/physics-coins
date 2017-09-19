@@ -143,6 +143,8 @@ $('#register').on('click', function(event)
               var token = createToken()
               sessionStorage.setItem("userID", token);
 
+              var coinsOverTime = [0]
+
               database.ref('users/0').set(
               {
                 name: name,
@@ -150,7 +152,8 @@ $('#register').on('click', function(event)
                 password: password1,
                 coins: 0,
                 new: true,
-                token: token
+                token: token,
+                coinsOverTime: coinsOverTime
               })
               window.location.href = 'dashboard.html';
             }
@@ -174,6 +177,9 @@ $('#register').on('click', function(event)
                   var userID = snap.val().length
                   var token = createToken()
                   sessionStorage.setItem("userID", token);
+
+                  var coinsOverTime = [0]
+
                   database.ref('users/'+userID).set(
                   {
 		                name: name,
@@ -181,7 +187,8 @@ $('#register').on('click', function(event)
 		                password: password1,
 		                coins: 0,
 		                new: true,
-		                token: token
+		                token: token,
+		                coinsOverTime: coinsOverTime
                   })
 
                   window.location.href = 'dashboard.html';

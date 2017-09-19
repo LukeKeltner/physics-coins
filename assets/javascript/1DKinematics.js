@@ -1,13 +1,13 @@
 var questionBank = 
 [
 	{
-		question:"Here is the first question.  The correct answer is C",
+		question:"1D Kinematics test question 1.  The correct answer is C",
 		correct:"C",
 		wrong:["A", "B", "D"]
 	},
 
 	{
-		question:"Here is the second question.  The correct answer is B",
+		question:"1D Kinematics test question 2.  The correct answer is B",
 		correct:"B",
 		wrong:["A", "D", "C"]
 	}

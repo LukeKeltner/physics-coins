@@ -38,6 +38,25 @@ var updateGambleButtons = function(coins)
 	$('#gamble5').html(gamble5)
 }
 
+var updateCoinsOverTime = function()
+{
+	var coinsOverTime = []
+	var coins = 0;
+
+	database.ref("users/"+userID).once("value", function(snap)
+	{
+		coinsOverTime = snap.val().coinsOverTime
+		coins = snap.val().coins
+	})
+
+	coinsOverTime.push(coins)
+
+	database.ref("users/"+userID).update(
+	{
+		coinsOverTime: coinsOverTime
+	})
+}
+
 database.ref("users").once('value', function(snap)
 {
 	for (var i=0; i<snap.val().length; i++)
@@ -82,6 +101,8 @@ database.ref("users").once('value', function(snap)
 			coins: 10,
 			new: false
 		})
+
+		updateCoinsOverTime()
 
 		$('#newUserModal').modal('hide')
 	})
@@ -257,6 +278,7 @@ $('#submit').on('click', function(event)
 			coins: newCoins
 		})
 
+		updateCoinsOverTime()
 		freeze = true;
 
 		setTimeout(function()
