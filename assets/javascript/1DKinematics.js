@@ -21,7 +21,7 @@ var questionBank =
 
 database.ref("questions").set(
 {
-	"1D Kinemtics": questionBank
+	"1D Kinematics": questionBank
 })
 
 console.log(questionBank[0])

@@ -20,22 +20,57 @@ database.ref("users").once('value', function(snap)
 
 database.ref("questions").once("value", function(snap)
 {
-	for (var key in snap.val())
+	var questions = snap.val();
+	var user;
+
+	database.ref("users/"+userID).once("value", function(snap2)
 	{
-		var newIcon = '<i class="fa fa-check-square"></i>'
-		var td = $('<td>')
-		var th = $("<th class='row'>"+key+"</th>")
-		var tr = $('<tr>')
+		user = snap2.val()
+	})
 
-		for (var i=0; i<snap.val()[key].length; i++)
+	setTimeout(function()
+	{
+		for (var key in snap.val())
 		{
-			td.append(newIcon)
+			var td = $('<td>')
+
+			console.log("The questions "+user.name+" has gotten right in the catergory of "+key)
+
+			var correct = []
+
+			for (var questionNumber in user[key])
+			{
+				correct.push(parseInt(questionNumber))
+			}
+
+			console.log(correct)
+
+			var th = $("<th class='row'>"+key+"</th>")
+			var tr = $('<tr>')
+
+			for (var i=0; i<snap.val()[key].length; i++)
+			{
+				if (i === correct[0])
+				{
+					console.log("hit!")
+					var newIcon = '<i class="fa fa-check-square" style="color: #28a745;"></i>'
+					td.append(newIcon)
+					correct.shift()
+				}
+
+				else
+				{
+					var newIcon = '<i class="fa fa-check-square"></i>'
+					td.append(newIcon)					
+				}
+
+			}
+
+			tr.append(th)
+			tr.append(td)
+			$('#table-body').append(tr)
+
+			//console.log(key+" has "+snap.val()[key].length+" questions")
 		}
-		tr.append(th)
-		tr.append(td)
-		$('#table-body').append(tr)
-
-		console.log(key+" has "+snap.val()[key].length+" questions")
-	}
-
+	},2000)
 })
