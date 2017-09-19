@@ -7,6 +7,7 @@ var choice = '';
 var freeze = false;
 var correct = new Audio('assets/sounds/correct.mp3');
 var wrong = new Audio('assets/sounds/wrong.mp3');
+var questionNumberCorrect = 0;
 
 var shuffleArray = function(array)
 {
@@ -206,6 +207,7 @@ $('#go-for-it').on('click', function(event)
 	{
 		var questionBank = snap.val()
 		var r = Math.floor(Math.random() * questionBank.length);
+		questionNumberCorrect = r;
 
 		$('#question-text').html(questionBank[r].question)
 
@@ -255,6 +257,13 @@ $('#submit').on('click', function(event)
 
 		if (choice === "correct")
 		{
+			var topic = $('#question-topic').html()
+
+			database.ref("users/"+userID+"/"+topic+"/"+questionNumberCorrect).set(
+			{
+				correct: true
+			})
+
 			correct.play()
 			newCoins = coins + 2*gamble
 			console.log("You got it right!")
@@ -265,7 +274,7 @@ $('#submit').on('click', function(event)
 
 		else
 		{
-			wrong.play()
+			//wrong.play()
 			newCoins = coins - gamble
 			console.log("You are wrong!")
 			$('.clicked').css("font-size", "80px")
