@@ -4,6 +4,10 @@ var token = sessionStorage.getItem("userID");
 
 var coinsOverTime = []
 
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
+
 database.ref("users").once('value', function(snap)
 {
 	for (var i=0; i<snap.val().length; i++)
@@ -60,7 +64,7 @@ database.ref("questions").once("value", function(snap)
 
 				else
 				{
-					var newIcon = '<i class="fa fa-check-square"></i>'
+					var newIcon = '<i class="fa fa-window-close"></i>'
 					td.append(newIcon)					
 				}
 

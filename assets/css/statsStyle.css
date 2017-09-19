@@ -6,9 +6,18 @@ body
 .fa.fa-check-square
 {
 	margin:10px;
+
 }
 
-.fa.fa-check-square.got
+.fa.fa-window-close
+{
+	margin:10px;
+	color: #dc3545;
+}
+
+.fa.fa-check-square.check:hover
 {
 	color: #28a745;
 }
+
+
