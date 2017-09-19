@@ -1,0 +1,14 @@
+body
+{
+	margin-top: 30px;
+}
+
+.fa.fa-check-square
+{
+	margin:10px;
+}
+
+.fa.fa-check-square.got
+{
+	color: #28a745;
+}

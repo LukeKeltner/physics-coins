@@ -10,6 +10,12 @@ var questionBank =
 		question:"1D Kinematics test question 2.  The correct answer is B",
 		correct:"B",
 		wrong:["A", "D", "C"]
+	},
+
+	{
+		question:"1D Kinematics test question 2.  The correct answer is Boop",
+		correct:"Boop",
+		wrong:["Acid", "Dang", "Can"]
 	}
 ]
 
