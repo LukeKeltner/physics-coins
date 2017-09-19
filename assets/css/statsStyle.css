@@ -12,12 +12,11 @@ body
 .fa.fa-window-close
 {
 	margin:10px;
-	color: #dc3545;
+	/*color: #dc3545;*/
 }
 
 .fa.fa-check-square.check:hover
 {
 	color: #28a745;
 }
-
 

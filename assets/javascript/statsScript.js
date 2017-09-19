@@ -49,7 +49,7 @@ database.ref("questions").once("value", function(snap)
 
 			console.log(correct)
 
-			var th = $("<th class='row'>"+key+"</th>")
+			var th = $("<th>"+key+"</th>")
 			var tr = $('<tr>')
 
 			for (var i=0; i<snap.val()[key].length; i++)
