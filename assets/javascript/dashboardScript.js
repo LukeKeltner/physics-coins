@@ -80,6 +80,7 @@ database.ref("users").once('value', function(snap)
 				})
 
 				updateGambleButtons(newCoins)
+				updateCoinsOverTime()
 			}
 
 			else

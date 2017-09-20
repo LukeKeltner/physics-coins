@@ -2,14 +2,15 @@ var userID = -1;
 var token = sessionStorage.getItem("userID");
 
 
-var coinsOverTime = []
-
-$(function () {
+$(function () 
+{
   $('[data-toggle="tooltip"]').tooltip()
 })
 
 database.ref("users").once('value', function(snap)
 {
+	var coinsOverTime = []
+
 	for (var i=0; i<snap.val().length; i++)
 	{
 		if (snap.val()[i].token === token)
@@ -18,8 +19,19 @@ database.ref("users").once('value', function(snap)
 			$("#name").html(snap.val()[i].name)
 			newUser = snap.val()[i].new
 			$('#coins-display').html(snap.val()[i].coins)
+			coinsOverTime = snap.val()[i].coinsOverTime
+			coinsOverTime.unshift('Coins Over Time')
 		}
 	}
+
+	var chart = c3.generate({
+	    bindto: '#chart',
+	    data: {
+	      columns: [
+	        coinsOverTime,
+	      ]
+	    }
+	});
 })
 
 database.ref("questions").once("value", function(snap)
