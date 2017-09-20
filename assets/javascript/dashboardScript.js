@@ -114,9 +114,10 @@ database.ref("users").on('value', function(snap)
 {
 	if (userID !== -1)
 	{
-		$('#coins-display').html(snap.val()[userID].coins)
+		var coins = snap.val()[userID].coins
+		var updateCoins = coins.toLocaleString()
+		$('#coins-display').html(updateCoins)
 
-		var coins = snap.val()[userID].coins;
 		updateGambleButtons(coins);
 	}
 })
