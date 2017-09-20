@@ -27,10 +27,18 @@ var shuffleArray = function(array)
 var updateGambleButtons = function(coins)
 {
 	var gamble1 = Math.floor(coins/10);
-	var gamble2 = Math.floor(coins/7);
-	var gamble3 = Math.floor(coins/3);
+	var gamble2 = Math.floor(coins/7)+1;
+	var gamble3 = Math.floor(coins/3)+1;
 	var gamble4 = Math.floor(coins/2);
 	var gamble5 = coins;
+
+	gamble1.toLocaleString()
+	gamble2.toLocaleString()
+	gamble3.toLocaleString()
+	gamble4.toLocaleString()
+	gamble5.toLocaleString()
+
+	//Can't add with commas!
 
 	$('#gamble1').html(gamble1)
 	$('#gamble2').html(gamble2)
