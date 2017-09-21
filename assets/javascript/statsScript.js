@@ -30,7 +30,7 @@ database.ref("users").once('value', function(snap)
 	      columns: [
 	        coinsOverTime,
 	      ]
-	    }
+	    },
 	});
 })
 
@@ -69,14 +69,14 @@ database.ref("questions").once("value", function(snap)
 				if (i === correct[0])
 				{
 					console.log("hit!")
-					var newIcon = '<i class="fa fa-check-square" style="color: #28a745;"></i>'
+					var newIcon = '<i class="fa fa-check-square" style="color: #28a745; width:0px"></i>'
 					td.append(newIcon)
 					correct.shift()
 				}
 
 				else
 				{
-					var newIcon = '<i class="fa fa-window-close"></i>'
+					var newIcon = '<i class="fa fa-window-close" style="width: 0px"></i>'
 					td.append(newIcon)					
 				}
 

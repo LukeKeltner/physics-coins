@@ -226,13 +226,15 @@ $('#go-for-it').on('click', function(event)
 		$('#question-text').html(questionBank[r].question)
 
 		buttons = []
-		var button1 = $("<button type='button' class='btn btn-default btn-block answer' id='correct'></button>")
+		var button1 = $("<button type='button' class='btn btn-default btn-block answer'></button>")
+		button1.data("data-result", "correct")
 		button1.html(questionBank[r].correct)
 		buttons.push(button1)
 
 		for (var i=0; i<3; i++)
 		{
-			var button = $("<button type='button' class='btn btn-default btn-block answer' id='wrong'></button>")
+			var button = $("<button type='button' class='btn btn-default btn-block answer'></button>")
+			button.data("data-result", "wrong")
 			button.html(questionBank[r].wrong[i])
 			buttons.push(button)
 		}
@@ -266,7 +268,8 @@ $(document).on('click', '.answer', function(event)
 	$('.answer').attr('class', 'btn btn-default btn-block answer')
 	$('.answer').removeClass('clicked')
 	$(this).attr('class', 'btn btn-primary btn-block answer')
-	choice = $(this).attr('id')
+	choice = $(this).data('data-result')
+	console.log("choice is: "+choice)
 	$(this).addClass('clicked')
 	console.log($('#questionModal').hasClass('show'))
 })
@@ -296,7 +299,7 @@ $('#submit').on('click', function(event)
 			correct.play()
 			var wonAmount = 2*gamble
 			newCoins = coins + wonAmount
-			$('.clicked').css("font-size", "400%")
+			$('.clicked').css("font-size", "200%")
 			$('.clicked').html("+"+wonAmount.toLocaleString())
 			$('.clicked').attr('class', 'btn btn-success btn-block answer')
 		}
@@ -306,7 +309,7 @@ $('#submit').on('click', function(event)
 			//wrong.play()
 			var lostAmount = 1*gamble
 			newCoins = coins - lostAmount
-			$('.clicked').css("font-size", "400%")
+			$('.clicked').css("font-size", "200%")
 			$('.clicked').html("-"+lostAmount.toLocaleString())
 			$('.clicked').attr('class', 'btn btn-danger btn-block answer')
 		}

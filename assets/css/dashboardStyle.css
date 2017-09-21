@@ -13,10 +13,10 @@ body
     white-space: normal;
 }
 
-/* #coins-display
+#coins-display
 {
 	display: inline-block;
-} */
+}
 
 .card
 {
@@ -34,12 +34,12 @@ body
 	disable:true;
 }
 
-#leaderboard
+.stats-leaderboard
 {
-	margin-top: 20px;
+	margin: 20px;
 }
-
 .huge
 {
 	font-style: 40px;
 }
+
