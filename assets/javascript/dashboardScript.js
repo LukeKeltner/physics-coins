@@ -83,7 +83,7 @@ database.ref("users").once('value', function(snap)
 
 
 				$('#refreshedModal').modal("show")
-				$('#coins-lost').html(snap.val()[i].gamble)
+				$('#coins-lost').html(snap.val()[i].gamble.toLocaleString())
 
 				$('#lose-coins').on('click', function(event)
 				{
@@ -215,7 +215,7 @@ $('#go-for-it').on('click', function(event)
 
 	$('#questionModal').modal('show');
 	$('#question-topic').html(topic)
-	$('#gamble-amount').html(gambleAmount)
+	$('#gamble-amount').html(gambleAmount.toLocaleString())
 
 	database.ref("questions/"+topic).once("value", function(snap)
 	{

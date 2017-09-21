@@ -68,8 +68,11 @@ $('#login').on('click', function(event)
             if (snap.val()[i].email === email)
             {
             	wrongEmail = false;
+            	var userSalt = snap.val()[i].salt;
+                var userHash = snap.val()[i].hash;
+                var createdHash = createHash(password, userSalt);
 
-            	if (password === snap.val()[i].password)
+            	if (createdHash === userHash)
             	{
             		validPassword = true;
             		loggedIn = true;
@@ -136,6 +139,9 @@ $('#register').on('click', function(event)
 
 	if (validName && validEmail && validPassword)
 	{
+		var salt = createSalt()
+  		var hash = createHash(password1, salt)
+
 		database.ref('users').once('value', function(snap)
 		{
         	if (!snap.hasChild('0'))
@@ -149,7 +155,8 @@ $('#register').on('click', function(event)
               {
                 name: name,
                 email: email,
-                password: password1,
+                salt: salt,
+                hash: hash,
                 coins: 0,
                 new: true,
                 token: token,
@@ -184,7 +191,8 @@ $('#register').on('click', function(event)
                   {
 		                name: name,
 		                email: email,
-		                password: password1,
+		                salt: salt,
+		                hash: hash,
 		                coins: 0,
 		                new: true,
 		                token: token,
