@@ -32,11 +32,11 @@ var updateGambleButtons = function(coins)
 	var gamble4 = Math.floor(coins/2);
 	var gamble5 = coins;
 
-	gamble1.toLocaleString()
-	gamble2.toLocaleString()
-	gamble3.toLocaleString()
-	gamble4.toLocaleString()
-	gamble5.toLocaleString()
+	gamble1 = gamble1.toLocaleString()
+	gamble2 = gamble2.toLocaleString()
+	gamble3 = gamble3.toLocaleString()
+	gamble4 = gamble4.toLocaleString()
+	gamble5 = gamble5.toLocaleString()
 
 	//Can't add with commas!
 
@@ -75,7 +75,7 @@ database.ref("users").once('value', function(snap)
 			userID = i;
 			$("#welcome").html(snap.val()[i].name)
 			newUser = snap.val()[i].new
-			$('#coins-display').html(snap.val()[i].coins)
+			$('#coins-display').html(snap.val()[i].coins.toLocaleString())
 
 			if (snap.val()[i].refreshed)
 			{
@@ -205,6 +205,8 @@ $('#go-for-it').on('click', function(event)
 {
 	var topic = physicsTopicDisplay.html();
 	var gambleAmount = gambleAmountDisplay.html()
+	gambleAmount = gambleAmount.replace(/,/g, "");
+	gambleAmount = parseInt(gambleAmount);
 
 	database.ref("users/"+userID).update(
 	{
@@ -292,18 +294,20 @@ $('#submit').on('click', function(event)
 			})
 
 			correct.play()
-			newCoins = coins + 2*gamble
+			var wonAmount = 2*gamble
+			newCoins = coins + wonAmount
 			$('.clicked').css("font-size", "80px")
-			$('.clicked').html("+"+2*gamble)
+			$('.clicked').html("+"+wonAmount.toLocaleString())
 			$('.clicked').attr('class', 'btn btn-success btn-block answer')
 		}
 
 		else
 		{
 			//wrong.play()
-			newCoins = coins - gamble
+			var lostAmount = 1*gamble
+			newCoins = coins - lostAmount
 			$('.clicked').css("font-size", "80px")
-			$('.clicked').html("-"+gamble)
+			$('.clicked').html("-"+lostAmount.toLocaleString())
 			$('.clicked').attr('class', 'btn btn-danger btn-block answer')
 		}
 
