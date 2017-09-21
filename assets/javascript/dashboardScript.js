@@ -296,7 +296,7 @@ $('#submit').on('click', function(event)
 			correct.play()
 			var wonAmount = 2*gamble
 			newCoins = coins + wonAmount
-			$('.clicked').css("font-size", "80px")
+			$('.clicked').css("font-size", "400%")
 			$('.clicked').html("+"+wonAmount.toLocaleString())
 			$('.clicked').attr('class', 'btn btn-success btn-block answer')
 		}
@@ -306,7 +306,7 @@ $('#submit').on('click', function(event)
 			//wrong.play()
 			var lostAmount = 1*gamble
 			newCoins = coins - lostAmount
-			$('.clicked').css("font-size", "80px")
+			$('.clicked').css("font-size", "400%")
 			$('.clicked').html("-"+lostAmount.toLocaleString())
 			$('.clicked').attr('class', 'btn btn-danger btn-block answer')
 		}
