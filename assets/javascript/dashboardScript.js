@@ -204,15 +204,6 @@ $('#go-for-it').on('click', function(event)
 	$('#question-topic').html(topic)
 	$('#gamble-amount').html(gambleAmount)
 
-	console.log($('#questionModal').hasClass('hide'))
-	window.onunload = function()
-	{
-		database.ref("users/"+userID).update(
-		{
-			refreshed: true
-		})
-	}
-
 	database.ref("questions/"+topic).once("value", function(snap)
 	{
 		var questionBank = snap.val()
@@ -240,6 +231,21 @@ $('#go-for-it').on('click', function(event)
 		$('#question3Div').html(buttons[2])
 		$('#question4Div').html(buttons[3])
 	})
+
+	setTimeout(function()
+	{
+		window.onunload = function()
+		{
+			if($('#questionModal').hasClass('show'))
+			{
+				database.ref("users/"+userID).update(
+				{
+					refreshed: true
+				})
+			}
+		}
+	}, 1000)
+
 })
 
 $(document).on('click', '.answer', function(event)
@@ -249,7 +255,7 @@ $(document).on('click', '.answer', function(event)
 	$(this).attr('class', 'btn btn-primary btn-block answer')
 	choice = $(this).attr('id')
 	$(this).addClass('clicked')
-	console.log(choice)
+	console.log($('#questionModal').hasClass('show'))
 })
 
 $('#submit').on('click', function(event)
@@ -276,7 +282,6 @@ $('#submit').on('click', function(event)
 
 			correct.play()
 			newCoins = coins + 2*gamble
-			console.log("You got it right!")
 			$('.clicked').css("font-size", "80px")
 			$('.clicked').html("+"+2*gamble)
 			$('.clicked').attr('class', 'btn btn-success btn-block answer')
@@ -286,7 +291,6 @@ $('#submit').on('click', function(event)
 		{
 			//wrong.play()
 			newCoins = coins - gamble
-			console.log("You are wrong!")
 			$('.clicked').css("font-size", "80px")
 			$('.clicked').html("-"+gamble)
 			$('.clicked').attr('class', 'btn btn-danger btn-block answer')
@@ -311,5 +315,4 @@ $('#submit').on('click', function(event)
 			freeze = false;
 		}, 2000)
 	}
-
 })

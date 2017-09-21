@@ -23,5 +23,3 @@ database.ref("questions").set(
 {
 	"1D Kinematics": questionBank
 })
-
-console.log(questionBank[0])
