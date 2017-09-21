@@ -79,16 +79,27 @@ database.ref("users").once('value', function(snap)
 
 			if (snap.val()[i].refreshed)
 			{
-				alert("You just lost 10 coins!")
-				var newCoins = snap.val()[i].coins - 10;
-				database.ref("users/"+i).update(
+				var newCoins = snap.val()[i].coins - snap.val()[i].gamble;
+
+
+				$('#refreshedModal').modal("show")
+				$('#coins-lost').html(snap.val()[i].gamble)
+
+				$('#lose-coins').on('click', function(event)
 				{
-					refreshed: false,
-					coins: newCoins
+					console.log(newCoins)		
+
+					$('#refreshedModal').modal("hide")	
 				})
 
-				updateGambleButtons(newCoins)
-				updateCoinsOverTime()
+					database.ref("users/"+userID).update(
+					{
+						refreshed: false,
+						coins: newCoins
+					})		
+					
+					updateGambleButtons(newCoins)
+					updateCoinsOverTime()
 			}
 
 			else
