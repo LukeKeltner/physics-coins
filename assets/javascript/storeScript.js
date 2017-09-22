@@ -28,6 +28,8 @@ var updateCoinsOverTime = function()
 
 database.ref("users").once('value').then(function(snap)
 {
+	var users = snap.val()
+
 	for (var i=0; i<snap.val().length; i++)
 	{
 		if (snap.val()[i].token === token)
@@ -40,14 +42,28 @@ database.ref("users").once('value').then(function(snap)
 
 	database.ref("store/items").once("value").then(function(snap)
 	{
-		console.log(snap.val())
 
 		for (var key in snap.val())
 		{
-			var newItem = $('<button type="button" class="btn btn-outline-primary btn-lg btn-block item" style="width: 100%"><span class="pull-left">'+snap.val()[key].name+'</span><span class="pull-right">'+snap.val()[key].cost.toLocaleString()+'</span><br></button>')
+			var newItem = $('<button type="button" class="btn btn-primary btn-lg btn-block item" style="width: 100%"><span class="pull-left">'+snap.val()[key].name+'</span><span class="pull-right">'+snap.val()[key].cost.toLocaleString()+'</span><br></button>')
 			newItem.append('<span class="pull-left" style="font-size:15px">'+snap.val()[key].description+'</span>')
 			newItem.data("data-id", snap.val()[key].id)
 			newItem.data("data-cost", snap.val()[key].cost)
+
+			//console.log(users[userID].bought)
+			//console.log(snap.val()[key].id)
+
+			for (var key2 in users[userID].bought)
+			{
+				console.log(key2)
+
+				if (key2 === snap.val()[key].id)
+				{
+					newItem.attr("class", "btn btn-success btn-lg btn-block item")
+					newItem.prop('disabled', true);
+				}
+			}
+
 			$('#items-list').append(newItem)
 		}
 
@@ -60,6 +76,8 @@ database.ref("users").once('value').then(function(snap)
 		{
 			var cost = $(this).data("data-cost")
 			var id = $(this).data("data-id")
+			$(this).attr("class", "btn btn-success btn-lg btn-block item")
+			$(this).prop('disabled', true);
 
 			var newCoins = 0;
 
