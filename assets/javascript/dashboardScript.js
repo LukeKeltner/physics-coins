@@ -77,9 +77,6 @@ var updateTopicChoices = function()
 	{
 		user = snap2.val()
 
-		console.log(user)
-	
-
 		database.ref("questions").once("value").then(function(snap)
 		{
 			topics = snap.val()
@@ -92,18 +89,14 @@ var updateTopicChoices = function()
 
 					for (var question in user[key])
 					{
-						console.log(question)
 						numberCorrect = numberCorrect + 1;
 					}
-
-					console.log("User has "+numberCorrect+" correct answers in the topic of "+key)
 
 					if (numberCorrect === topics[key].length)
 					{
 						key = key.replace(/\s+/g, '');
 						key = key.replace("'", "")
-						$('#'+key).attr('class', 'btn btn-warning btn-lg btn-block')
-						$('#'+key).css('border', '3px solid green')
+						$('#'+key).attr('class', 'btn btn-success btn-lg btn-block')
 						$('#'+key).prop('disabled', true);
 					}
 				}
@@ -268,25 +261,14 @@ $('#go-for-it').on('click', function(event)
 	database.ref("questions/"+topic).once("value").then(function(snap)
 	{
 		var questionBank = snap.val()
+		console.log("Below this!")
+		console.log(questionBank)
 
 		database.ref("users/"+userID).once("value").then(function(snap2)
 		{
 			var user = snap2.val()
 			var numberCorrect = 0;
 			var seen = true;
-
-			for (var key in user[topic])
-			{
-				numberCorrect = numberCorrect + 1;
-			}
-
-			console.log(user[topic])
-			console.log(questionBank)
-
-			if (numberCorrect === questionBank.length)
-			{
-				$('#question-text').html("You finished all questions in "+topic+"!")
-			}
 
 			var r = Math.floor(Math.random() * questionBank.length);
 			questionNumberCorrect = r;
@@ -310,6 +292,13 @@ $('#go-for-it').on('click', function(event)
 			if (numberCorrect < questionBank.length)
 			{
 				$('#question-text').html(questionBank[r].question)
+
+				if (questionBank[r].hard)
+				{
+					$('.modal-backdrop').css('background-color', 'red')
+					$('#question-text').prepend("<span style='color:#dc3545'>HARD</span><br>") 
+				}
+
 				buttons = []
 				var button1 = $("<button type='button' class='btn btn-default btn-block answer'></button>")
 				button1.data("data-result", "correct")

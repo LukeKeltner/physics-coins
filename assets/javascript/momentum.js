@@ -15,7 +15,8 @@ var questionBank =
 	{
 		question:"Momentum test question 3.  The correct answer is Boop",
 		correct:"Boop",
-		wrong:["Acid", "Dang", "Can"]
+		wrong:["Acid", "Dang", "Can"],
+		hard: true
 	},
 
 	{
@@ -27,7 +28,8 @@ var questionBank =
 	{
 		question:"Momentum test question 5.  The correct answer is ABC",
 		correct:"ABC",
-		wrong:["XYZ", "MNO", "DEF"]
+		wrong:["XYZ", "MNO", "DEF"],
+		hard: true
 	}
 ]
 
