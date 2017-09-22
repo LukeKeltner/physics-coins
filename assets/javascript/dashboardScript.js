@@ -66,6 +66,51 @@ var updateCoinsOverTime = function()
 	})
 }
 
+
+//There is an undefined element issue in the user object.  Also, this is garbage, use .then()!
+var updateTopicChoices = function()
+{
+	var topics = []
+	var user = []
+
+	database.ref("users/"+userID).once("value").then(function(snap2)
+	{
+		user = snap2.val()
+
+		console.log(user)
+	
+
+		database.ref("questions").once("value").then(function(snap)
+		{
+			topics = snap.val()
+
+			for (var key in topics)
+			{
+				if (user[key]!==undefined)
+				{
+					var numberCorrect = 0;
+
+					for (var question in user[key])
+					{
+						console.log(question)
+						numberCorrect = numberCorrect + 1;
+					}
+
+					console.log("User has "+numberCorrect+" correct answers in the topic of "+key)
+
+					if (numberCorrect === topics[key].length)
+					{
+						key = key.replace(/\s+/g, '');
+						key = key.replace("'", "")
+						$('#'+key).attr('class', 'btn btn-success btn-lg btn-block')
+						$('#'+key).prop('disabled', true);
+					}
+				}
+			}
+		})
+	})
+}
+
 database.ref("users").once('value', function(snap)
 {
 	for (var i=0; i<snap.val().length; i++)
@@ -77,6 +122,8 @@ database.ref("users").once('value', function(snap)
 			newUser = snap.val()[i].new
 			$('#coins-display').html(snap.val()[i].coins.toLocaleString())
 
+			updateTopicChoices()
+
 			if (snap.val()[i].refreshed)
 			{
 				var newCoins = snap.val()[i].coins - snap.val()[i].gamble;
@@ -86,8 +133,7 @@ database.ref("users").once('value', function(snap)
 				$('#coins-lost').html(snap.val()[i].gamble.toLocaleString())
 
 				$('#lose-coins').on('click', function(event)
-				{
-					console.log(newCoins)		
+				{	
 
 					$('#refreshedModal').modal("hide")	
 				})
@@ -138,6 +184,7 @@ database.ref("users").on('value', function(snap)
 		$('#coins-display').html(updateCoins)
 
 		updateGambleButtons(coins);
+		updateTopicChoices()
 	}
 })
 
@@ -217,34 +264,73 @@ $('#go-for-it').on('click', function(event)
 	$('#question-topic').html(topic)
 	$('#gamble-amount').html(gambleAmount.toLocaleString())
 
-	database.ref("questions/"+topic).once("value", function(snap)
+	database.ref("questions/"+topic).once("value").then(function(snap)
 	{
 		var questionBank = snap.val()
-		var r = Math.floor(Math.random() * questionBank.length);
-		questionNumberCorrect = r;
 
-		$('#question-text').html(questionBank[r].question)
-
-		buttons = []
-		var button1 = $("<button type='button' class='btn btn-default btn-block answer'></button>")
-		button1.data("data-result", "correct")
-		button1.html(questionBank[r].correct)
-		buttons.push(button1)
-
-		for (var i=0; i<3; i++)
+		database.ref("users/"+userID).once("value").then(function(snap2)
 		{
-			var button = $("<button type='button' class='btn btn-default btn-block answer'></button>")
-			button.data("data-result", "wrong")
-			button.html(questionBank[r].wrong[i])
-			buttons.push(button)
-		}
+			var user = snap2.val()
+			var numberCorrect = 0;
+			var seen = true;
 
-		buttons = shuffleArray(buttons)
+			for (var key in user[topic])
+			{
+				numberCorrect = numberCorrect + 1;
+			}
 
-		$('#question1Div').html(buttons[0])
-		$('#question2Div').html(buttons[1])
-		$('#question3Div').html(buttons[2])
-		$('#question4Div').html(buttons[3])
+			console.log(user[topic])
+			console.log(questionBank)
+
+			if (numberCorrect === questionBank.length)
+			{
+				$('#question-text').html("You finished all questions in "+topic+"!")
+			}
+
+			var r = Math.floor(Math.random() * questionBank.length);
+			questionNumberCorrect = r;
+
+			while (numberCorrect < questionBank.length && seen)
+			{
+				seen = false;
+
+				for (var key in user[topic])
+				{
+					if (r === parseInt(key))
+					{
+						seen = true;
+						$('#question-text').prepend("Hey, you already got this question correct!<br>")
+						r = Math.floor(Math.random() * questionBank.length);
+						questionNumberCorrect = r;
+					}
+				}
+			}
+
+			if (numberCorrect < questionBank.length)
+			{
+				$('#question-text').html(questionBank[r].question)
+				buttons = []
+				var button1 = $("<button type='button' class='btn btn-default btn-block answer'></button>")
+				button1.data("data-result", "correct")
+				button1.html(questionBank[r].correct)
+				buttons.push(button1)
+
+				for (var i=0; i<3; i++)
+				{
+					var button = $("<button type='button' class='btn btn-default btn-block answer'></button>")
+					button.data("data-result", "wrong")
+					button.html(questionBank[r].wrong[i])
+					buttons.push(button)
+				}
+
+				buttons = shuffleArray(buttons)
+
+				$('#question1Div').html(buttons[0])
+				$('#question2Div').html(buttons[1])
+				$('#question3Div').html(buttons[2])
+				$('#question4Div').html(buttons[3])
+			}
+		})
 	})
 
 	setTimeout(function()
@@ -269,9 +355,7 @@ $(document).on('click', '.answer', function(event)
 	$('.answer').removeClass('clicked')
 	$(this).attr('class', 'btn btn-primary btn-block answer')
 	choice = $(this).data('data-result')
-	console.log("choice is: "+choice)
 	$(this).addClass('clicked')
-	console.log($('#questionModal').hasClass('show'))
 })
 
 $('#submit').on('click', function(event)

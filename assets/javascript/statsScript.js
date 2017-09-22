@@ -34,18 +34,15 @@ database.ref("users").once('value', function(snap)
 	});
 })
 
-database.ref("questions").once("value", function(snap)
+database.ref("questions").once("value").then(function(snap)
 {
 	var questions = snap.val();
 	var user;
 
-	database.ref("users/"+userID).once("value", function(snap2)
+	database.ref("users/"+userID).once("value").then(function(snap2)
 	{
 		user = snap2.val()
-	})
 
-	setTimeout(function()
-	{
 		for (var key in snap.val())
 		{
 			var td = $('<td>')
@@ -88,5 +85,5 @@ database.ref("questions").once("value", function(snap)
 
 			//console.log(key+" has "+snap.val()[key].length+" questions")
 		}
-	},2000)
+	})
 })
