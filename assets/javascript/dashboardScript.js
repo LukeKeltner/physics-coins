@@ -102,7 +102,7 @@ var updateTopicChoices = function()
 					{
 						key = key.replace(/\s+/g, '');
 						key = key.replace("'", "")
-						$('#'+key).attr('class', 'btn btn-success btn-lg btn-block')
+						$('#'+key).attr('class', 'btn btn-warning btn-lg btn-block')
 						$('#'+key).prop('disabled', true);
 					}
 				}
