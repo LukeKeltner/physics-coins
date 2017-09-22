@@ -164,6 +164,13 @@ database.ref("users").once('value', function(snap)
 				var coins = snap.val()[userID].coins;
 				updateGambleButtons(coins);		
 			}
+
+			console.log(snap.val()[i].bought.leaderboard.bought)
+
+			if (snap.val()[i].bought.leaderboard.bought)
+			{
+				$('#leaderboard').show()
+			}
 		}
 	}
 
