@@ -11,6 +11,18 @@ var storeItems =
 		description:"Don't like a question?  Hit the reroll button to roll another question for free!",
 		cost: 12000000,
 		id: "reroll"
+	},
+	{
+		name:"Test Item 1",
+		description:"This is just a test!",
+		cost: 13000,
+		id: "test-item-1"
+	},
+	{
+		name:"Test Item 2",
+		description:"This is just a test!",
+		cost: 400,
+		id: "test-item-2"
 	}
 ]
 

@@ -2,11 +2,6 @@ var userID = -1;
 var token = sessionStorage.getItem("userID");
 
 
-$(function () 
-{
-  $('[data-toggle="tooltip"]').tooltip()
-})
-
 var updateCoinsOverTime = function()
 {
 	var coinsOverTime = []
@@ -45,7 +40,7 @@ database.ref("users").once('value').then(function(snap)
 
 		for (var key in snap.val())
 		{
-			var newItem = $('<button type="button" class="btn btn-primary btn-lg btn-block item" style="width: 100%"><span class="pull-left">'+snap.val()[key].name+'</span><span class="pull-right">'+snap.val()[key].cost.toLocaleString()+'</span><br></button>')
+			var newItem = $('<button type="button" class="btn btn-primary btn-lg btn-block item" style="width: 100%" data-toggle="tooltip" data-placement="right" title="Buy me!"><span class="pull-left">'+snap.val()[key].name+'</span><span class="pull-right">'+snap.val()[key].cost.toLocaleString()+'</span><br></button>')
 			newItem.append('<span class="pull-left" style="font-size:15px">'+snap.val()[key].description+'</span>')
 			newItem.data("data-id", snap.val()[key].id)
 			newItem.data("data-cost", snap.val()[key].cost)
@@ -55,12 +50,25 @@ database.ref("users").once('value').then(function(snap)
 
 			for (var key2 in users[userID].bought)
 			{
-				console.log(key2)
+				console.log("------------------------")
+				console.log("item: "+snap.val()[key].id+" and user bought item: "+key2)
+				console.log(snap.val()[key].id===key2)
 
 				if (key2 === snap.val()[key].id)
 				{
+					console.log("YAY!")
 					newItem.attr("class", "btn btn-success btn-lg btn-block item")
+					newItem.attr("title", "Alredy bought")
 					newItem.prop('disabled', true);
+					break;
+				}
+
+				else if (users[userID].coins < snap.val()[key].cost)
+				{
+					console.log("Here too?")
+					newItem.attr("class", "btn btn-default btn-lg btn-block item")
+					newItem.attr("title", "You can't afford this")
+					newItem.prop('disabled', true);					
 				}
 			}
 
@@ -106,3 +114,9 @@ database.ref("users").once('value').then(function(snap)
 		})
 	})
 })
+
+$(function () 
+{
+  $('[data-toggle="tooltip"]').tooltip()
+})
+
