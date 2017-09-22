@@ -105,6 +105,23 @@ var updateTopicChoices = function()
 	})
 }
 
+var getSomeHelp = function()
+{
+	$('#lowCoinsModal').modal('show')
+
+	$('#get-10-help-coins').on('click', function(event)
+	{
+		database.ref("users/"+userID).update(
+		{
+			coins: 10
+		})
+
+		$('#lowCoinsModal').modal('hide')
+	})
+
+	$('#lowCoinsModal').modal('hide')
+}
+
 database.ref("users").once('value', function(snap)
 {
 	for (var i=0; i<snap.val().length; i++)
@@ -179,6 +196,11 @@ database.ref("users").on('value', function(snap)
 
 		updateGambleButtons(coins);
 		updateTopicChoices()
+
+		if (coins < 10)
+		{
+			getSomeHelp()
+		}
 	}
 })
 
