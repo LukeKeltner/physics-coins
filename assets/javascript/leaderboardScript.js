@@ -62,7 +62,7 @@ database.ref("users").once("value", function(snap)
 		var place = i+1
 		var number = $("<td>"+place+"</td>")
 		var name = $("<td>"+names[i]+"</td>")
-		var score = $("<td>"+scores[i]+"</td>")
+		var score = $("<td>"+scores[i].toLocaleString()+"</td>")
 
 		if (tokens[i] === token)
 		{

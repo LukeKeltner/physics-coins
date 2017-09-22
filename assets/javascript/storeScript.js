@@ -45,30 +45,38 @@ database.ref("users").once('value').then(function(snap)
 			newItem.data("data-id", snap.val()[key].id)
 			newItem.data("data-cost", snap.val()[key].cost)
 
-			//console.log(users[userID].bought)
-			//console.log(snap.val()[key].id)
-
-			for (var key2 in users[userID].bought)
+			if (users[userID].bought === undefined && users[userID].coins < snap.val()[key].cost)
 			{
-				console.log("------------------------")
-				console.log("item: "+snap.val()[key].id+" and user bought item: "+key2)
-				console.log(snap.val()[key].id===key2)
+				console.log("Here too?")
+				newItem.attr("class", "btn btn-default btn-lg btn-block item")
+				newItem.attr("title", "You can't afford this")
+				newItem.prop('disabled', true);						
+			}
 
-				if (key2 === snap.val()[key].id)
+			else
+			{
+				for (var key2 in users[userID].bought)
 				{
-					console.log("YAY!")
-					newItem.attr("class", "btn btn-success btn-lg btn-block item")
-					newItem.attr("title", "Alredy bought")
-					newItem.prop('disabled', true);
-					break;
-				}
+					console.log("------------------------")
+					console.log("item: "+snap.val()[key].id+" and user bought item: "+key2)
+					console.log(snap.val()[key].id===key2)
 
-				else if (users[userID].coins < snap.val()[key].cost)
-				{
-					console.log("Here too?")
-					newItem.attr("class", "btn btn-default btn-lg btn-block item")
-					newItem.attr("title", "You can't afford this")
-					newItem.prop('disabled', true);					
+					if (key2 === snap.val()[key].id)
+					{
+						console.log("YAY!")
+						newItem.attr("class", "btn btn-success btn-lg btn-block item")
+						newItem.attr("title", "Alredy bought")
+						newItem.prop('disabled', true);
+						break;
+					}
+
+					else if (users[userID].coins < snap.val()[key].cost)
+					{
+						console.log("Here too?")
+						newItem.attr("class", "btn btn-default btn-lg btn-block item")
+						newItem.attr("title", "You can't afford this")
+						newItem.prop('disabled', true);					
+					}
 				}
 			}
 

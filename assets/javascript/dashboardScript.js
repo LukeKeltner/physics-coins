@@ -9,6 +9,12 @@ var correct = new Audio('assets/sounds/correct.mp3');
 var wrong = new Audio('assets/sounds/wrong.mp3');
 var questionNumberCorrect = 0;
 
+
+console.log(token)
+if (token === null)
+{
+	$('#loginModal').modal("show")
+}
 var shuffleArray = function(array)
 {
 	var result = []
