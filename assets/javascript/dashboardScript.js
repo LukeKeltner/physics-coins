@@ -8,7 +8,7 @@ var freeze = false;
 var correct = new Audio('assets/sounds/correct.mp3');
 var wrong = new Audio('assets/sounds/wrong.mp3');
 var questionNumberCorrect = 0;
-var maxCoins = 100000
+var initialMaxCoins = 100
 
 
 console.log(token)
@@ -114,11 +114,13 @@ var updateTopicChoices = function()
 
 var starCheck = function()
 {
-
 	database.ref("users/"+userID).once("value", function(snap)
 	{
 		var coins = snap.val().coins
 		var stars = snap.val().stars
+		var maxCoins = initialMaxCoins * Math.pow(10, stars)
+
+		console.log("Amount of coins to next star: "+maxCoins)
 
 		if (coins > maxCoins)
 		{

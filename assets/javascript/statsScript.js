@@ -1,5 +1,7 @@
 var userID = -1;
 var token = sessionStorage.getItem("userID");
+var maxCoins = 0;
+var initialMaxCoins = 100;
 
 
 $(function () 
@@ -7,7 +9,7 @@ $(function ()
   $('[data-toggle="tooltip"]').tooltip()
 })
 
-database.ref("users").once('value', function(snap)
+database.ref("users").once('value').then(function(snap)
 {
 	var coinsOverTime = []
 
@@ -19,29 +21,40 @@ database.ref("users").once('value', function(snap)
 			$("#name").html(snap.val()[i].name)
 			newUser = snap.val()[i].new
 			$('#coins-display').html(snap.val()[i].coins)
+
+			var stars = snap.val()[i].stars
+			maxCoins = initialMaxCoins * Math.pow(10, stars)
 			coinsOverTime = snap.val()[i].coinsOverTime
 			coinsOverTime.unshift('Coins Over Time')
+
+			var chart = c3.generate(
+			{
+			    bindto: '#chart',
+			    data: {
+			      columns: [
+			        coinsOverTime,
+			      ]
+			    },
+			    grid: 
+			    {
+				    y: 
+				    {
+				        lines: 
+				        [
+				            {value: maxCoins, text: 'Next Star', position: 'start', stroke: 'green'},
+				        ]
+				    }
+		    	},
+			    axis: 
+			    {
+				    y: 
+				    {
+				        max: maxCoins
+				    }
+		    	},
+			});
 		}
 	}
-
-	var chart = c3.generate({
-	    bindto: '#chart',
-	    data: {
-	      columns: [
-	        coinsOverTime,
-	      ]
-	    },
-	    grid: 
-	    {
-		    y: 
-		    {
-		        lines: 
-		        [
-		            {value: 100000, text: 'Star Level', position: 'start', stroke: 'green'},
-		        ]
-		    }
-    	}
-	});
 })
 
 database.ref("questions").once("value").then(function(snap)
@@ -92,8 +105,6 @@ database.ref("questions").once("value").then(function(snap)
 			tr.append(th)
 			tr.append(td)
 			$('#table-body').append(tr)
-
-			//console.log(key+" has "+snap.val()[key].length+" questions")
 		}
 	})
 })
