@@ -153,6 +153,16 @@ var displayStars = function()
 	})
 }
 
+var nextStarDisplay = function()
+{
+	database.ref("users/"+userID).once("value", function(snap)
+	{
+		var stars = snap.val().stars;
+		var nextStar = initialMaxCoins * Math.pow(10,stars)
+		$('#next-star').html(nextStar.toLocaleString())
+	})
+}
+
 var getSomeHelp = function()
 {
 	$('#lowCoinsModal').modal('show')
@@ -185,6 +195,7 @@ database.ref("users").once('value', function(snap)
 
 			updateTopicChoices()
 			displayStars()
+			nextStarDisplay()
 
 			if (snap.val()[i].refreshed)
 			{
@@ -252,6 +263,7 @@ database.ref("users").on('value', function(snap)
 		updateGambleButtons(coins);
 		updateTopicChoices()
 		displayStars()
+		nextStarDisplay()
 
 		if (coins < 10)
 		{
