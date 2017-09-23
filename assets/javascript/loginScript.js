@@ -160,7 +160,8 @@ $('#register').on('click', function(event)
                 coins: 0,
                 new: true,
                 token: token,
-                coinsOverTime: coinsOverTime
+                coinsOverTime: coinsOverTime,
+                stars: 0
               })
               window.location.href = 'dashboard.html';
             }
@@ -196,7 +197,8 @@ $('#register').on('click', function(event)
 		                coins: 0,
 		                new: true,
 		                token: token,
-		                coinsOverTime: coinsOverTime
+		                coinsOverTime: coinsOverTime,
+		                stars: 0
                   })
 
                   window.location.href = 'dashboard.html';

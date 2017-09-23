@@ -44,6 +44,7 @@ $('#submit').on('click', function(event)
 		})
 
 		updateCoinsOverTime()
+		starCheck()
 		freeze = true;
 
 		setTimeout(function()

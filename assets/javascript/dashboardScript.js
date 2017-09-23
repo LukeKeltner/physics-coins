@@ -8,6 +8,7 @@ var freeze = false;
 var correct = new Audio('assets/sounds/correct.mp3');
 var wrong = new Audio('assets/sounds/wrong.mp3');
 var questionNumberCorrect = 0;
+var maxCoins = 100000
 
 
 console.log(token)
@@ -111,6 +112,45 @@ var updateTopicChoices = function()
 	})
 }
 
+var starCheck = function()
+{
+
+	database.ref("users/"+userID).once("value", function(snap)
+	{
+		var coins = snap.val().coins
+		var stars = snap.val().stars
+
+		if (coins > maxCoins)
+		{
+			var newCoins = coins - maxCoins;
+			var newStars = stars + 1;
+
+			database.ref("users/"+userID).update(
+			{
+				coins: newCoins,
+				stars: newStars
+			})
+
+			updateCoinsOverTime()
+		}
+
+	})
+}
+
+var displayStars = function()
+{
+	$('#stars-container').html("")
+	database.ref("users/"+userID).once("value", function(snap)
+	{
+		var numberOfStars = snap.val().stars
+
+		for (var i=0; i<numberOfStars; i++)
+		{
+			$('#stars-container').append('<i class="fa fa-star fa-2x" aria-hidden="true"></i>')
+		}
+	})
+}
+
 var getSomeHelp = function()
 {
 	$('#lowCoinsModal').modal('show')
@@ -121,6 +161,8 @@ var getSomeHelp = function()
 		{
 			coins: 10
 		})
+
+		updateCoinsOverTime()
 
 		$('#lowCoinsModal').modal('hide')
 	})
@@ -140,6 +182,7 @@ database.ref("users").once('value', function(snap)
 			$('#coins-display').html(snap.val()[i].coins.toLocaleString())
 
 			updateTopicChoices()
+			displayStars()
 
 			if (snap.val()[i].refreshed)
 			{
@@ -206,6 +249,7 @@ database.ref("users").on('value', function(snap)
 
 		updateGambleButtons(coins);
 		updateTopicChoices()
+		displayStars()
 
 		if (coins < 10)
 		{

@@ -31,6 +31,16 @@ database.ref("users").once('value', function(snap)
 	        coinsOverTime,
 	      ]
 	    },
+	    grid: 
+	    {
+		    y: 
+		    {
+		        lines: 
+		        [
+		            {value: 100000, text: 'Star Level', position: 'start', stroke: 'green'},
+		        ]
+		    }
+    	}
 	});
 })
 
