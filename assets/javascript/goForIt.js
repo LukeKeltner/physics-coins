@@ -1,3 +1,51 @@
+var createEquation = function(string, randomBank)
+{
+	var operationStrings = ["+", "-", "*", "/"]
+
+	for (var i=0; i<randomBank.length; i++)
+	{
+		string = string.replace("rand"+i, randomBank[i])
+	}
+
+	console.log(eval(string))
+
+/*	string1 = string.split("+")
+
+	console.log(string1)
+
+	for (var i=0; i< string1.length; i++)
+	{
+		string1[i] = string1[i].split("*")
+	}
+
+	console.log(string1)
+
+
+	result = []
+	for (var i=0; i<string1.length; i++)
+	{
+
+		var number = 1;
+
+		for (var j=0; j<string1[i].length; j++)
+		{
+			console.log(parseFloat(string1[i][j]))
+			number = number * parseFloat(string1[i][j])
+		}
+
+		result.push(number)
+	}
+
+	console.log(result)*/
+
+}
+
+createEquation("3+2*rand0*1/5.5*1/3.14", [4])
+
+
+
+
+
 $('#go-for-it').on('click', function(event)
 {
 	var topic = physicsTopicDisplay.html();
@@ -46,6 +94,7 @@ $('#go-for-it').on('click', function(event)
 			if (numberCorrect < questionBank.length)
 			{
 				var questionText = questionBank[r].question
+
 				if (questionBank[r].type === "random")
 				{
 					var randomBank = []
@@ -57,10 +106,6 @@ $('#go-for-it').on('click', function(event)
 						randomBank.push(n)
 					}
 				}
-
-
-
-
 
 				$('#question-text').html(questionText)
 
