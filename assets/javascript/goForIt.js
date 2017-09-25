@@ -1,4 +1,4 @@
-var createEquation = function(string, randomBank)
+var getNumber = function(string, randomBank)
 {
 	var operationStrings = ["+", "-", "*", "/"]
 
@@ -7,7 +7,7 @@ var createEquation = function(string, randomBank)
 		string = string.replace("rand"+i, randomBank[i])
 	}
 
-	console.log(eval(string))
+	return eval(string).toFixed(2)
 
 /*	string1 = string.split("+")
 
@@ -40,8 +40,6 @@ var createEquation = function(string, randomBank)
 
 }
 
-createEquation("3+2*rand0*1/5.5*1/3.14", [4])
-
 
 
 
@@ -65,6 +63,7 @@ $('#go-for-it').on('click', function(event)
 	database.ref("questions/"+topic).once("value").then(function(snap)
 	{
 		var questionBank = snap.val()
+		console.log(questionBank)
 
 		database.ref("users/"+userID).once("value").then(function(snap2)
 		{
@@ -93,7 +92,10 @@ $('#go-for-it').on('click', function(event)
 
 			if (numberCorrect < questionBank.length)
 			{
-				var questionText = questionBank[r].question
+				var questionText = questionBank[r].question;
+				var correctText = "";
+				var wrongText = [];
+				var buttons = []
 
 				if (questionBank[r].type === "random")
 				{
@@ -105,9 +107,38 @@ $('#go-for-it').on('click', function(event)
 						questionText = questionText.replace("rand"+i, n)
 						randomBank.push(n)
 					}
+
+					correctText = getNumber(questionBank[r].correct, randomBank)
+
+					var button1 = $("<button type='button' class='btn btn-default btn-block answer'></button>")
+					button1.data("data-result", "correct")
+					button1.html(correctText)
+					buttons.push(button1)
+
+					for (var i=0; i<3; i++)
+					{
+						var button = $("<button type='button' class='btn btn-default btn-block answer'></button>")
+						button.data("data-result", "wrong")
+						button.html(getNumber(questionBank[r].wrong[i], randomBank))
+						buttons.push(button)
+					}
 				}
 
-				$('#question-text').html(questionText)
+				else if (questionBank[r].type === "text")
+				{
+					var button1 = $("<button type='button' class='btn btn-default btn-block answer'></button>")
+					button1.data("data-result", "correct")
+					button1.html(questionBank[r].correct)
+					buttons.push(button1)
+
+					for (var i=0; i<3; i++)
+					{
+						var button = $("<button type='button' class='btn btn-default btn-block answer'></button>")
+						button.data("data-result", "wrong")
+						button.html(questionBank[r].wrong[i])
+						buttons.push(button)
+					}
+				}
 
 				if (questionBank[r].hard)
 				{
@@ -115,22 +146,9 @@ $('#go-for-it').on('click', function(event)
 					$('#question-text').prepend("<span style='color:#dc3545'>HARD</span><br>") 
 				}
 
-				buttons = []
-				var button1 = $("<button type='button' class='btn btn-default btn-block answer'></button>")
-				button1.data("data-result", "correct")
-				button1.html(questionBank[r].correct)
-				buttons.push(button1)
-
-				for (var i=0; i<3; i++)
-				{
-					var button = $("<button type='button' class='btn btn-default btn-block answer'></button>")
-					button.data("data-result", "wrong")
-					button.html(questionBank[r].wrong[i])
-					buttons.push(button)
-				}
-
 				buttons = shuffleArray(buttons)
 
+				$('#question-text').html(questionText)
 				$('#question1Div').html(buttons[0])
 				$('#question2Div').html(buttons[1])
 				$('#question3Div').html(buttons[2])
