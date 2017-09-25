@@ -16,6 +16,7 @@ if (token === null)
 {
 	$('#loginModal').modal("show")
 }
+
 var shuffleArray = function(array)
 {
 	var result = []

@@ -5,6 +5,10 @@ var initialMaxCoins = 100;
 var coinsOverTime = [];
 var chart;
 
+if (token === null)
+{
+	$('#loginModal').modal("show")
+}
 
 $(function () 
 {

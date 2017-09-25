@@ -1,6 +1,10 @@
 var userID = -1;
 var token = sessionStorage.getItem("userID");
 
+if (token === null)
+{
+	$('#loginModal').modal("show")
+}
 
 var updateCoinsOverTime = function()
 {

@@ -1,5 +1,6 @@
 var userID = -1;
 var token = sessionStorage.getItem("userID");
+console.log(token)
 
 
 $(function () 
@@ -39,6 +40,13 @@ var sort = function(array1, array2, array3)
 		}
 	}
 }
+
+if (token === null)
+{
+	$('#loginModal').modal("show")
+}
+
+
 
 database.ref("users").once("value", function(snap)
 {

@@ -17,8 +17,6 @@ $('#go-for-it').on('click', function(event)
 	database.ref("questions/"+topic).once("value").then(function(snap)
 	{
 		var questionBank = snap.val()
-		console.log("Below this!")
-		console.log(questionBank)
 
 		database.ref("users/"+userID).once("value").then(function(snap2)
 		{
@@ -47,7 +45,29 @@ $('#go-for-it').on('click', function(event)
 
 			if (numberCorrect < questionBank.length)
 			{
-				$('#question-text').html(questionBank[r].question)
+				var questionText = questionBank[r].question
+				if (questionBank[r].type === "random")
+				{
+					var rand0 = 0;
+					var rand1 = 0;
+					var rand2 = 0;
+					var rand3 = 0;
+					var rand4 = 0;
+					var rand5 = 0;
+					var rand6 = 0;
+
+					for (var i=0; i<questionBank[r].numberOfRandom; i++)
+					{
+						var n = (Math.random()*(questionBank[r]["rand"+i].max-questionBank[r]["rand"+i].min)+questionBank[r]["rand"+i].min).toFixed(questionBank[r]["rand"+i].decimal);
+						questionText = questionText.replace("rand"+i, n)
+					}
+				}
+
+
+
+
+
+				$('#question-text').html(questionText)
 
 				if (questionBank[r].hard)
 				{
