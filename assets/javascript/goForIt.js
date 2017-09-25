@@ -48,18 +48,13 @@ $('#go-for-it').on('click', function(event)
 				var questionText = questionBank[r].question
 				if (questionBank[r].type === "random")
 				{
-					var rand0 = 0;
-					var rand1 = 0;
-					var rand2 = 0;
-					var rand3 = 0;
-					var rand4 = 0;
-					var rand5 = 0;
-					var rand6 = 0;
+					var randomBank = []
 
 					for (var i=0; i<questionBank[r].numberOfRandom; i++)
 					{
 						var n = (Math.random()*(questionBank[r]["rand"+i].max-questionBank[r]["rand"+i].min)+questionBank[r]["rand"+i].min).toFixed(questionBank[r]["rand"+i].decimal);
 						questionText = questionText.replace("rand"+i, n)
+						randomBank.push(n)
 					}
 				}
 
