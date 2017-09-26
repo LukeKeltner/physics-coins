@@ -61,3 +61,18 @@ body
 	margin: 10px;
 }
 
+#you-got-a-star
+{
+	background-color: #ffff82;
+	text-align: center;
+	font-size: 10em;
+	color:white;
+	text-shadow: 0px 6px 10px #000000;
+	display: none;
+}
+
+#star
+{
+	text-shadow: 0px 0px 0px #000000;
+}
+

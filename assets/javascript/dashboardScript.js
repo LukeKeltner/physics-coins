@@ -130,6 +130,26 @@ var starCheck = function()
 
 		if (coins > maxCoins)
 		{
+			var width = $(window).width()
+			var height = $(window).height()
+
+			$('#you-got-a-star').css("width", width)
+			$('#you-got-a-star').css("height", height)
+
+			setTimeout(function()
+			{
+				//$('#you-got-a-star').show()
+				$('#you-got-a-star').fadeIn()
+
+				setTimeout(function()
+				{
+					$('#you-got-a-star').fadeOut()
+					//$('#you-got-a-star').hide()
+
+				},2000)
+
+			},2000)
+
 			var newCoins = coins - maxCoins;
 			var newStars = stars + 1;
 
