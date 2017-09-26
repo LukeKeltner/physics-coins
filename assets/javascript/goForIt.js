@@ -95,7 +95,7 @@ $('#go-for-it').on('click', function(event)
 				var questionText = questionBank[r].question;
 				var correctText = "";
 				var wrongText = [];
-				var buttons = []
+				var buttons = [];
 
 				if (questionBank[r].type === "random")
 				{

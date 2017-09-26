@@ -60,17 +60,22 @@ var updateCoinsOverTime = function()
 	var coinsOverTime = []
 	var coins = 0;
 
-	database.ref("users/"+userID).once("value", function(snap)
+	database.ref("users/"+userID).once("value").then(function(snap)
 	{
 		coinsOverTime = snap.val().coinsOverTime
 		coins = snap.val().coins
-	})
+		coinsOverTime.push(coins)
 
-	coinsOverTime.push(coins)
+		database.ref("users/"+userID).update(
+		{
+			coinsOverTime: coinsOverTime
+		})
 
-	database.ref("users/"+userID).update(
-	{
-		coinsOverTime: coinsOverTime
+		if (coins < 10)
+		{
+			console.log("twice here?")
+			getSomeHelp()
+		}	
 	})
 }
 
@@ -170,17 +175,17 @@ var getSomeHelp = function()
 
 	$('#get-10-help-coins').on('click', function(event)
 	{
+		console.log("Boop")
 		database.ref("users/"+userID).update(
 		{
 			coins: 10
 		})
 
+		console.log("About to add 10 to coinsOVerTime")
 		updateCoinsOverTime()
 
 		$('#lowCoinsModal').modal('hide')
 	})
-
-	$('#lowCoinsModal').modal('hide')
 }
 
 database.ref("users").once('value', function(snap)
@@ -257,6 +262,7 @@ database.ref("users").on('value', function(snap)
 {
 	if (userID !== -1)
 	{
+		console.log("User updated twice?")
 		var coins = snap.val()[userID].coins
 		var updateCoins = coins.toLocaleString()
 		$('#coins-display').html(updateCoins)
@@ -264,12 +270,7 @@ database.ref("users").on('value', function(snap)
 		updateGambleButtons(coins);
 		updateTopicChoices()
 		displayStars()
-		nextStarDisplay()
-
-		if (coins < 10)
-		{
-			getSomeHelp()
-		}
+		nextStarDisplay()		
 	}
 })
 

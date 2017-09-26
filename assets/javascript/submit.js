@@ -5,6 +5,7 @@ $('#submit').on('click', function(event)
 		var gamble = 0;
 		var coins = 0;
 		var newCoins = 0;
+
 		database.ref("users/"+userID).once("value", function(snap)
 		{
 			gamble = snap.val().gamble
@@ -57,8 +58,6 @@ $('#submit').on('click', function(event)
 			$('.physics-topic-button').attr('class', 'btn btn-default btn-lg btn-block physics-topic-button');
 			$('.physics-topic-button').attr('clicked', 'false');
 			physicsTopicDisplay.html("Pick a Topic")
-
-
 
 			$('#go-for-it').prop('disabled', true);
 			$('#questionModal').modal('hide')
