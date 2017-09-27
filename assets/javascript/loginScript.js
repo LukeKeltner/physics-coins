@@ -76,8 +76,8 @@ $('#login').on('click', function(event)
             if (snap.val()[i].email === email)
             {
             	wrongEmail = false;
-            	var userSalt = snap.val()[i].salt;
-                var userHash = snap.val()[i].hash;
+/*            	var userSalt = snap.val()[i].salt;
+                var userHash = snap.val()[i].hash;*/
                 var databasePassword = snap.val()[i].password
                 var createdHash = createHash(password, userSalt);
                 var deCryptPassword = deCryptData(databasePassword)
@@ -150,8 +150,8 @@ $('#register').on('click', function(event)
 
 	if (validName && validEmail && validPassword)
 	{
-		var salt = createSalt()
-  		var hash = createHash(password1, salt)
+/*		var salt = createSalt()
+  		var hash = createHash(password1, salt)*/
 
   		var enCryptPassword = enCryptData(password1).toString()
 
@@ -168,8 +168,8 @@ $('#register').on('click', function(event)
               {
                 name: name,
                 email: email,
-                salt: salt,
-                hash: hash,
+/*                salt: salt,
+                hash: hash,*/
                 coins: 0,
                 new: true,
                 token: token,
@@ -206,8 +206,8 @@ $('#register').on('click', function(event)
                   {
 		                name: name,
 		                email: email,
-		                salt: salt,
-		                hash: hash,
+/*		                salt: salt,
+		                hash: hash,*/
 		                coins: 0,
 		                new: true,
 		                token: token,
