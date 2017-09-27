@@ -45,7 +45,6 @@ $('#submit').on('click', function(event)
 		})
 
 		updateCoinsOverTime()
-		starCheck()
 		freeze = true;
 
 		setTimeout(function()
@@ -62,6 +61,8 @@ $('#submit').on('click', function(event)
 			$('#go-for-it').prop('disabled', true);
 			$('#questionModal').modal('hide')
 			freeze = false;
+
+			starCheck()
 		}, 2000)
 
 		choice = ""

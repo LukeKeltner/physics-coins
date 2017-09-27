@@ -7,6 +7,7 @@ var choice = '';
 var freeze = false;
 var correct = new Audio('assets/sounds/correct.mp3');
 var wrong = new Audio('assets/sounds/wrong.mp3');
+var gotStar = new Audio('assets/sounds/star.mp3');
 var questionNumberCorrect = 0;
 var initialMaxCoins = 100
 
@@ -136,15 +137,12 @@ var starCheck = function()
 			$('#you-got-a-star').css("width", width)
 			$('#you-got-a-star').css("height", height)
 
+			gotStar.play()
+			$('#you-got-a-star').fadeIn()
+
 			setTimeout(function()
 			{
-				$('#you-got-a-star').fadeIn()
-
-				setTimeout(function()
-				{
-					$('#you-got-a-star').fadeOut()
-
-				},2000)
+				$('#you-got-a-star').fadeOut()
 
 			},2000)
 
