@@ -79,7 +79,7 @@ $('#login').on('click', function(event)
 /*            	var userSalt = snap.val()[i].salt;
                 var userHash = snap.val()[i].hash;*/
                 var databasePassword = snap.val()[i].password
-                var createdHash = createHash(password, userSalt);
+                /*var createdHash = createHash(password, userSalt);*/
                 var deCryptPassword = deCryptData(databasePassword)
                 console.log(deCryptPassword)
 

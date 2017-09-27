@@ -63,5 +63,7 @@ $('#submit').on('click', function(event)
 			$('#questionModal').modal('hide')
 			freeze = false;
 		}, 2000)
+
+		choice = ""
 	}
 })
