@@ -28,3 +28,18 @@ body
 	color:#ffc107;
 	margin: 10px;
 }
+
+#coin-container
+{
+	display: inline-block;
+}
+
+/*.card-header
+{
+	box-shadow: 0px 4px 2px 0px rgba(0, 0, 0, 0.2), 0px 6px 6px 0 rgba(0, 0, 0, 0.19);
+}
+*/
+.fa-star
+{
+	text-shadow: 0px 0px 0px #000000;
+}

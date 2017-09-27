@@ -138,13 +138,11 @@ var starCheck = function()
 
 			setTimeout(function()
 			{
-				//$('#you-got-a-star').show()
 				$('#you-got-a-star').fadeIn()
 
 				setTimeout(function()
 				{
 					$('#you-got-a-star').fadeOut()
-					//$('#you-got-a-star').hide()
 
 				},2000)
 
