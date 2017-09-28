@@ -148,6 +148,8 @@ $('#go-for-it').on('click', function(event)
 
 				buttons = shuffleArray(buttons)
 
+				var questionNumber = r+1
+				$('#question-number').html(questionNumber)
 				$('#question-text').html(questionText)
 				$('#question1Div').html(buttons[0])
 				$('#question2Div').html(buttons[1])
