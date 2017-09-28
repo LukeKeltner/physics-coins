@@ -11,8 +11,6 @@ var gotStar = new Audio('assets/sounds/star.mp3');
 var questionNumberCorrect = 0;
 var initialMaxCoins = 100
 
-
-console.log(token)
 if (token === null)
 {
 	$('#loginModal').modal("show")
@@ -74,16 +72,17 @@ var updateCoinsOverTime = function()
 
 		if (coins < 10)
 		{
-			console.log("twice here?")
 			getSomeHelp()
 		}	
 	})
 }
 
 
-//There is an undefined element issue in the user object.  Also, this is garbage, use .then()!
+
 var updateTopicChoices = function()
 {
+	console.log("-----------------------------------------------")
+	console.log("About to empty")
 	var topics = []
 	var user = []
 
@@ -94,11 +93,13 @@ var updateTopicChoices = function()
 		database.ref("questions").once("value").then(function(snap)
 		{
 			topics = snap.val()
+			$('#topic-button-container').empty()
 
 			for (var key in topics)
 			{
 				if (user[key]!==undefined)
 				{
+					console.log("user has played in "+key)
 					var numberCorrect = 0;
 
 					for (var question in user[key])
@@ -108,11 +109,24 @@ var updateTopicChoices = function()
 
 					if (numberCorrect === topics[key].length)
 					{
-						key = key.replace(/\s+/g, '');
-						key = key.replace("'", "")
-						$('#'+key).attr('class', 'btn btn-success btn-lg btn-block')
-						$('#'+key).prop('disabled', true);
+						console.log("Making "+key+" button! green")
+						var topicButton = $('<button type="button" class="btn btn btn-success btn-lg btn-block" clicked="false">'+key+'</button>')
+						topicButton.prop('disabled', true);
+						$('#topic-button-container').append(topicButton)
 					}
+
+					else
+					{	console.log("Making "+key+" button! user hasn't finished")
+						$('#topic-button-container').append('<button type="button" class="btn btn-default btn-lg btn-block physics-topic-button" clicked="false">'+key+'</button>')
+					}
+				}
+
+				else
+				{	
+					console.log("user has not played in "+key)
+					console.log("Making "+key)
+					$('#topic-button-container').append('<button type="button" class="btn btn-default btn-lg btn-block physics-topic-button" clicked="false">'+key+'</button>')
+
 				}
 			}
 		})
@@ -126,8 +140,6 @@ var starCheck = function()
 		var coins = snap.val().coins
 		var stars = snap.val().stars
 		var maxCoins = initialMaxCoins * Math.pow(10, stars)
-
-		console.log("Amount of coins to next star: "+maxCoins)
 
 		if (coins > maxCoins)
 		{
@@ -191,13 +203,11 @@ var getSomeHelp = function()
 
 	$('#get-10-help-coins').on('click', function(event)
 	{
-		console.log("Boop")
 		database.ref("users/"+userID).update(
 		{
 			coins: 10
 		})
 
-		console.log("About to add 10 to coinsOVerTime")
 		updateCoinsOverTime()
 
 		$('#lowCoinsModal').modal('hide')
@@ -278,11 +288,11 @@ database.ref("users").on('value', function(snap)
 {
 	if (userID !== -1)
 	{
-		console.log("User updated twice?")
 		var coins = snap.val()[userID].coins
 		var updateCoins = coins.toLocaleString()
 		$('#coins-display').html(updateCoins)
 
+		console.log("TRIGGER")
 		updateGambleButtons(coins);
 		updateTopicChoices()
 		displayStars()
@@ -290,7 +300,7 @@ database.ref("users").on('value', function(snap)
 	}
 })
 
-$('.physics-topic-button').on('click', function(event)
+$(document).on('click', '.physics-topic-button', function(event)
 {
 	var gambleAmount = gambleAmountDisplay.html()
 	var clicked = $(this).attr('clicked');
