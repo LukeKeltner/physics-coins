@@ -1,6 +1,6 @@
 var questionBank = 
 [
-	{
+/*	{
 		type: "random",
 		numberOfRandom: 2,
 		rand0:
@@ -49,7 +49,16 @@ var questionBank =
 		question:"Test Question.  What is rand1 squared times sin(rand0) divided by rand2?",
 		correct:"(Math.pow(rand1,2)*Math.sin(rand0*Math.PI/180))/rand2",
 		wrong:["rand0", "rand1", "rand0+rand1"]
-	},
+	},*/
+
+	{
+		type: "text",
+		image: true,
+		img: "<img src='assets/images/momentum.jpg' style='width:80%;'>",
+		question: "This is a test image question. A is the correct answer",
+		correct: "A",
+		wrong:["B", "C", "D"]
+	}
 ]
 
 database.ref("questions").update(

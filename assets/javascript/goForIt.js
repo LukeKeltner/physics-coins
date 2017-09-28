@@ -140,6 +140,11 @@ $('#go-for-it').on('click', function(event)
 					}
 				}
 
+				if (questionBank[r].image)
+				{
+					$('#image-container').html(questionBank[r].img)
+				}
+
 				if (questionBank[r].hard)
 				{
 					$('.modal-backdrop').css('background-color', 'red')
