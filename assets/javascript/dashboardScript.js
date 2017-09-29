@@ -215,7 +215,7 @@ var getSomeHelp = function()
 }
 
 $(function () {
-	$.calculator.setDefaults({showOn: 'both', buttonImageOnly: true, buttonImage: 'calculator.png'});
+	$.calculator.setDefaults({showOn: 'both', buttonImageOnly: false, buttonImage: 'calculator.png'});
 	$('#basicCalculator').calculator();
 	$('#sciCalculator').calculator({layout: $.calculator.scientificLayout});
 });

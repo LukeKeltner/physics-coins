@@ -60,6 +60,8 @@ $('#submit').on('click', function(event)
 
 			$('#go-for-it').prop('disabled', true);
 			$('#questionModal').modal('hide')
+
+			$('#image-container').empty()
 			freeze = false;
 
 			starCheck()
