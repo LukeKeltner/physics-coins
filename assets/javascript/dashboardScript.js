@@ -214,6 +214,12 @@ var getSomeHelp = function()
 	})
 }
 
+$(function () {
+	$.calculator.setDefaults({showOn: 'both', buttonImageOnly: true, buttonImage: 'calculator.png'});
+	$('#basicCalculator').calculator();
+	$('#sciCalculator').calculator({layout: $.calculator.scientificLayout});
+});
+
 database.ref("users").once('value', function(snap)
 {
 	for (var i=0; i<snap.val().length; i++)
