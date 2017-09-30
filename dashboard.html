@@ -232,29 +232,128 @@
 			</div>
 		</div>
 
-		<div class="row text-center">
-			<div class="col-md-6" id="question1Div">
-				<button type="button" class="btn btn-default btn-block answer">A</button>
+		<div class="row">
+			<div class="col-md-6 calculator-div">
+
+
+			<!-- Free Calculator-->
+			<div class="container-fluid calculator">
+			  <div class="row calc-row">
+			    <div class="alert alert-primary screen">0123456789</div>
+			  </div>
+			  
+			  <div class="row calc-row">
+			  	<div class="col-xs-3">
+			    	<button class="btn btn-secondary calc-button">C</button>
+				</div>
+				<div class="col-xs-3">
+					<button class="btn btn-secondary calc-button inverse">1/x</button>
+				</div>
+				<div class="col-xs-3">
+					<button class="btn btn-secondary calc-button plus-minus">+/-</button>
+				</div>
+			    <div class="col-xs-3">
+			    	<button class="btn btn-secondary calc-button root">sqrt</button>
+			    </div>
+			  </div>
+			  
+			  <div class="row calc-row">
+			  	<div class="col-xs-3">
+			    	<button class="btn btn-secondary calc-button">7</button>
+			    </div>
+			    <div class="col-xs-3">
+			    	<button class="btn btn-secondary calc-button">8</button>
+			    </div>
+			    <div class="col-xs-3">
+			    	<button class="btn btn-secondary calc-button">9</button>
+			    </div>
+			    <div class="col-xs-3">
+			    	<button class="btn btn-secondary calc-button buttonice">/</button>
+			    </div>
+			  </div>
+			  
+			  <div class="row calc-row">
+				<div class="col-xs-3">
+					<button class="btn btn-secondary calc-button">4</button>
+				</div>
+				<div class="col-xs-3">
+					<button class="btn btn-secondary calc-button">5</button>
+				</div>
+				<div class="col-xs-3">
+					<button class="btn btn-secondary calc-button">6</button>
+				</div>
+				<div class="col-xs-3">
+					<button class="btn btn-secondary calc-button multiply">*</button>
+				</div>
+			  </div>
+			  
+			  <div class="row calc-row">
+			    <div class="col-xs-3">
+			    	<button class="btn btn-secondary calc-button">1</button>
+			    </div>
+			    <div class="col-xs-3">
+			    	<button class="btn btn-secondary calc-button">2</button>
+			    </div>
+			    <div class="col-xs-3">
+			    	<button class="btn btn-secondary calc-button">3</button>
+			    </div>
+			    <div class="col-xs-3">
+			    	<button class="btn btn-secondary calc-button">-</button>
+			    </div>
+			  </div>
+			  
+			  <div class="row calc-row">
+			    <div class="col-xs-6">
+			    	<button class="btn btn-secondary calc-button zero">0</button>
+			    </div>
+			    <div class="col-xs-3">
+			    	<button class="btn btn-secondary calc-button decimal">.</button>
+			    </div>
+			    <div class="col-xs-3">
+			    	<button class="btn btn-secondary calc-button">+</button>
+			    </div>
+			  </div>
+
+			  <div class="row calc-row">
+			    <div class="col-xs-12">
+			    	<button class="btn btn-secondary calc-button equal">=</button>
+			    </div>
+			  </div>
 			</div>
 
-			<div class="col-md-6" id="question2Div">
-				<button type="button" class="btn btn-default btn-block answer">B</button>
-			</div>
-		</div>
 
-		<div class="row text-center">
-			<div class="col-md-6" id="question3Div">
-				<button type="button" class="btn btn-default btn-block answer">C</button>
+
+
+
 			</div>
 
-			<div class="col-md-6" id="question4Div">
-				<button type="button" class="btn btn-default btn-block answer">D</button>
+			<div class="col-md-12 question-div">
+
+				<div class="row text-center">
+					<div class="col-md-6" id="question1Div">
+						<button type="button" class="btn btn-default btn-block answer">A</button>
+					</div>
+
+					<div class="col-md-6" id="question2Div">
+						<button type="button" class="btn btn-default btn-block answer">B</button>
+					</div>
+				</div>
+
+				<div class="row text-center">
+					<div class="col-md-6" id="question3Div">
+						<button type="button" class="btn btn-default btn-block answer">C</button>
+					</div>
+
+					<div class="col-md-6" id="question4Div">
+						<button type="button" class="btn btn-default btn-block answer">D</button>
+					</div>
+				</div>
 			</div>
-		</div>
-      </div>
+	    </div>
+	    </div>
 
       <div class="modal-footer">
-      	<p><input type="text" id="sciCalculator"></p>
+		<button type="button" class="btn btn-default" id="show-calc">Show Calculator</button>
         <button type="button" class="btn btn-warning" id="submit">Submit</button>
       </div>
     </div>

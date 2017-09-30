@@ -84,3 +84,45 @@ body
     margin-right: auto;
 }
 
+
+.calc-button
+{
+	width:100%;
+}
+
+.col-xs-12
+{
+	width:100%;
+	padding: 10px;
+}
+
+.col-xs-3
+{
+	width:25%;
+	padding: 10px;
+}
+
+.col-xs-6
+{
+	width:50%;
+	padding: 10px;
+}
+
+.calculator
+{
+	margin-top: 20px;
+	background-color: #dddfe2;
+	border: 2px solid #868e96;
+}
+
+.calculator-div
+{
+	display: none;
+}
+
+.screen
+{
+	width:100%;
+	margin: 10px;
+	height:60px;
+}
