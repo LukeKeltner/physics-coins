@@ -62,6 +62,12 @@ $('#submit').on('click', function(event)
 			$('#questionModal').modal('hide')
 
 			$('#image-container').empty()
+
+			$('.calculator-div').hide()
+			$('.question-div').attr('class', 'col-xs-12 question-div')
+			$('#show-calc').html("Show Calculator")
+			calcOpen = false;	
+			
 			freeze = false;
 
 			starCheck()
