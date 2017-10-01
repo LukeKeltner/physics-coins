@@ -71,7 +71,6 @@ database.ref("questions").once("value").then(function(snap)
 		for (var key in snap.val())
 		{
 			var td = $('<td>')
-
 			//console.log("The questions "+user.name+" has gotten right in the catergory of "+key)
 
 			var correct = []
@@ -90,9 +89,9 @@ database.ref("questions").once("value").then(function(snap)
 				}
 			}
 
-			console.log(correct)
+			var percent = Math.round(correct.length/(correct.length+wrong.length)*100,0)
 
-			var th = $("<th>"+key+"</th>")
+			var th = $("<th class='text-center'>"+key+"</th>")
 			var tr = $('<tr>')
 
 			for (var i=0; i<snap.val()[key].length; i++)
@@ -105,16 +104,25 @@ database.ref("questions").once("value").then(function(snap)
 					correct.shift()
 				}
 
+				else if (i === wrong[0])
+				{
+					var newIcon = '<i class="fa fa-minus-square" style="color: red; width: 0px"></i>'
+					td.append(newIcon)	
+					wrong.shift()				
+				}
+
 				else
 				{
-					var newIcon = '<i class="fa fa-window-close" style="width: 0px"></i>'
-					td.append(newIcon)					
+					var newIcon = '<i class="fa fa-square" style="width: 0px"></i>'
+					td.append(newIcon)		
 				}
 
 			}
 
+
 			tr.append(th)
 			tr.append(td)
+			tr.append("<td>"+percent+"%</td>")
 			$('#table-body').append(tr)
 		}
 	})

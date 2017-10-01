@@ -12,7 +12,13 @@ body
 
 }
 
-.fa.fa-window-close
+.fa.fa-minus-square
+{
+	margin:10px;
+	/*color: #dc3545;*/
+}
+
+.fa.fa-square
 {
 	margin:10px;
 	/*color: #dc3545;*/
