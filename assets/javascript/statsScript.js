@@ -72,13 +72,22 @@ database.ref("questions").once("value").then(function(snap)
 		{
 			var td = $('<td>')
 
-			console.log("The questions "+user.name+" has gotten right in the catergory of "+key)
+			//console.log("The questions "+user.name+" has gotten right in the catergory of "+key)
 
 			var correct = []
+			var wrong = []
 
 			for (var questionNumber in user[key])
 			{
-				correct.push(parseInt(questionNumber))
+				if (user[key][questionNumber].correct)
+				{
+					correct.push(parseInt(questionNumber))
+				}
+
+				else if (!user[key][questionNumber].correct)
+				{
+					wrong.push(parseInt(questionNumber))
+				}
 			}
 
 			console.log(correct)
@@ -90,7 +99,7 @@ database.ref("questions").once("value").then(function(snap)
 			{
 				if (i === correct[0])
 				{
-					console.log("hit!")
+					//console.log("hit!")
 					var newIcon = '<i class="fa fa-check-square" style="color: #28a745; width:0px"></i>'
 					td.append(newIcon)
 					correct.shift()
@@ -114,7 +123,7 @@ database.ref("questions").once("value").then(function(snap)
 $('#switch-graph').on('click', function(event)
 {
 	var text = $('#switch-graph').html()
-	console.log(text)
+	//console.log(text)
 
 	if (text === "Show Next Star")
 	{

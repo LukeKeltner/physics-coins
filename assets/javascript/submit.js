@@ -31,6 +31,13 @@ $('#submit').on('click', function(event)
 
 		else
 		{
+			console.log("WRONG!")
+			var topic = $('#question-topic').html()
+
+			database.ref("users/"+userID+"/"+topic+"/"+questionNumberCorrect).set(
+			{
+				correct: false
+			})
 			//wrong.play()
 			var lostAmount = 1*gamble
 			newCoins = coins - lostAmount

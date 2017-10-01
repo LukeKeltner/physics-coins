@@ -82,8 +82,6 @@ var updateCoinsOverTime = function()
 
 var updateTopicChoices = function()
 {
-	console.log("-----------------------------------------------")
-	console.log("About to empty")
 	var topics = []
 	var user = []
 
@@ -100,7 +98,6 @@ var updateTopicChoices = function()
 			{
 				if (user[key]!==undefined)
 				{
-					console.log("user has played in "+key)
 					var numberCorrect = 0;
 
 					for (var question in user[key])
@@ -110,22 +107,20 @@ var updateTopicChoices = function()
 
 					if (numberCorrect === topics[key].length)
 					{
-						console.log("Making "+key+" button! green")
 						var topicButton = $('<button type="button" class="btn btn btn-success btn-lg btn-block" clicked="false">'+key+'</button>')
 						topicButton.prop('disabled', true);
 						$('#topic-button-container').append(topicButton)
 					}
 
 					else
-					{	console.log("Making "+key+" button! user hasn't finished")
+					{	
 						$('#topic-button-container').append('<button type="button" class="btn btn-default btn-lg btn-block physics-topic-button" clicked="false">'+key+'</button>')
 					}
 				}
 
 				else
 				{	
-					console.log("user has not played in "+key)
-					console.log("Making "+key)
+
 					$('#topic-button-container').append('<button type="button" class="btn btn-default btn-lg btn-block physics-topic-button" clicked="false">'+key+'</button>')
 
 				}
@@ -299,7 +294,6 @@ database.ref("users").on('value', function(snap)
 		var updateCoins = coins.toLocaleString()
 		$('#coins-display').html(updateCoins)
 
-		console.log("TRIGGER")
 		updateGambleButtons(coins);
 		updateTopicChoices()
 		displayStars()
@@ -382,6 +376,8 @@ updateScreen = function(displayValue) {
   var operation = null;
   var currentEntry = '0';
   updateScreen(result);
+  var display = ""
+
   
   $('.calc-button').on('click', function(evt) {
     var buttonPressed = $(this).html();
@@ -389,36 +385,59 @@ updateScreen = function(displayValue) {
     
     if (buttonPressed === "C") {
       result = 0;
-      currentEntry = '0';
+      currentEntry = '';
+      display = currentEntry;
     } else if (buttonPressed === "CE") {
       currentEntry = '0';
+      display = currentEntry;
     } else if (buttonPressed === "back") {
       //currentEntry = currentEntry.substring(0, currentEntry.length-1);
     } else if (buttonPressed === "+/-") {
       currentEntry *= -1;
+      display = currentEntry;
     } else if (buttonPressed === '.') {
       currentEntry += '.';
+      display = currentEntry;
     } else if (isNumber(buttonPressed)) {
-      if (currentEntry === '0') currentEntry = buttonPressed;
-      else currentEntry = currentEntry + buttonPressed;
+      if (currentEntry === '0') 
+      {
+      	currentEntry = buttonPressed;
+      	display = display + currentEntry;
+      }
+      else 
+      {
+      	console.log("pressed "+buttonPressed)
+      	display = display + buttonPressed;
+      	console.log("display: "+display)
+      	currentEntry = currentEntry + buttonPressed ;
+      }
     } else if (isOperator(buttonPressed)) {
       prevEntry = parseFloat(currentEntry);
       operation = buttonPressed;
+      display = currentEntry + operation;
       currentEntry = '';
     } else if(buttonPressed === '%') {
       currentEntry = currentEntry / 100;
+      display = currentEntry;
     } else if (buttonPressed === 'sqrt') {
       currentEntry = Math.sqrt(currentEntry);
+      display = currentEntry;
     } else if (buttonPressed === '1/x') {
       currentEntry = 1 / currentEntry;
+      display = currentEntry;
     } else if (buttonPressed === 'pi') {
       currentEntry = Math.PI;
+      display = currentEntry;
     } else if (buttonPressed === '=') {
+      var temp = currentEntry;
       currentEntry = operate(prevEntry, currentEntry, operation);
+      prevEntry = temp;
+      console.log("Prev entry: "+prevEntry)
+      display = currentEntry;
       operation = null;
     }
     
-    updateScreen(currentEntry);
+    updateScreen(display);
   });
 
 
