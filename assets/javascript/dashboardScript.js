@@ -80,7 +80,7 @@ var updateCoinsOverTime = function()
 
 
 
-var updateTopicChoices = function()
+var updateTopicChoices = function(string)
 {
 	var topics = []
 	var user = []
@@ -89,7 +89,7 @@ var updateTopicChoices = function()
 	{
 		user = snap2.val()
 
-		database.ref("questions").once("value").then(function(snap)
+		database.ref(string).once("value").then(function(snap)
 		{
 			topics = snap.val()
 			$('#topic-button-container').empty()
@@ -227,7 +227,7 @@ database.ref("users").once('value', function(snap)
 			newUser = snap.val()[i].new
 			$('#coins-display').html(snap.val()[i].coins.toLocaleString())
 
-			updateTopicChoices()
+			updateTopicChoices("questions")
 			displayStars()
 			nextStarDisplay()
 
@@ -295,7 +295,7 @@ database.ref("users").on('value', function(snap)
 		$('#coins-display').html(updateCoins)
 
 		updateGambleButtons(coins);
-		updateTopicChoices()
+		updateTopicChoices("questions")
 		displayStars()
 		nextStarDisplay()		
 	}
@@ -311,19 +311,40 @@ $(document).on('click', '.physics-topic-button', function(event)
 
 	if (clicked === "false")
 	{
-		var text = $(this).html()
-		$(this).attr('class', 'btn btn-warning btn-lg btn-block physics-topic-button');
-		$(this).attr('clicked', 'true');
-		physicsTopicDisplay.html(text)
-
-		if (gambleAmount !== "Pick an Amount of Coins")
+		if (!$('#back-button').is(":visible"))
 		{
-			$('#go-for-it').prop('disabled', false);
+			$('#back-button').show()
+	/*		var text = $(this).html()
+			$(this).attr('class', 'btn btn-warning btn-lg btn-block physics-topic-button');
+			$(this).attr('clicked', 'true');
+			physicsTopicDisplay.html(text)
+
+			if (gambleAmount !== "Pick an Amount of Coins")
+			{
+				$('#go-for-it').prop('disabled', false);
+			}*/
+
+			$('#topic-button-container').empty()
+			var topic = $(this).html()
+			updateTopicChoices("questions/"+topic)
+		}
+
+		else
+		{
+			var text = $(this).html()
+			$(this).attr('class', 'btn btn-warning btn-lg btn-block physics-topic-button');
+			$(this).attr('clicked', 'true');
+			physicsTopicDisplay.html(text)
+
+			if (gambleAmount !== "Pick an Amount of Coins")
+			{
+				$('#go-for-it').prop('disabled', false);
+			}		
 		}
 	}
 
 	else if (clicked === "true")
-	{
+	{	
 		$(this).attr('class', 'btn btn-default btn-lg btn-block physics-topic-button');
 		$(this).attr('clicked', 'false');
 		physicsTopicDisplay.html("Pick a Topic")
@@ -361,7 +382,11 @@ $('.gamble-amount-button').on('click', function(event)
 	}
 })
 
-
+$('#back-button').on("click", function(event)
+{
+	$('#back-button').hide();
+	updateTopicChoices("questions");
+})
 
 
 

@@ -20,6 +20,11 @@ body
 	border:1px solid black;
 } 
 
+#back-button
+{
+	display: none;
+}
+
 #coins-display
 {
 	display: inline-block;

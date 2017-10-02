@@ -84,5 +84,5 @@ var sAndVquestionBank =
 
 database.ref("questions/1D Kinematics").update(
 {
-	"Scalars and Vectors": sAndVquestionBank
+	"2 Distance and Displacement": sAndVquestionBank
 })
