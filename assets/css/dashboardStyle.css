@@ -20,6 +20,11 @@ body
 	border:1px solid black;
 } 
 
+/*.choices
+{
+	font-weight: bold;
+}*/
+
 #back-button
 {
 	display: none;

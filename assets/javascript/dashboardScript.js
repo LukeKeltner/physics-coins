@@ -2,6 +2,7 @@ var userID = -1;
 var token = sessionStorage.getItem("userID");
 var newUser = false;
 var physicsTopicDisplay = $('#topic-display');
+var physicsSubtopicDisplay = $('#subtopic-display');
 var gambleAmountDisplay = $('#gamble-display');
 var choice = '';
 var freeze = false;
@@ -326,6 +327,7 @@ $(document).on('click', '.physics-topic-button', function(event)
 
 			$('#topic-button-container').empty()
 			var topic = $(this).html()
+			physicsTopicDisplay.html(topic)
 			updateTopicChoices("questions/"+topic)
 		}
 
@@ -334,7 +336,7 @@ $(document).on('click', '.physics-topic-button', function(event)
 			var text = $(this).html()
 			$(this).attr('class', 'btn btn-warning btn-lg btn-block physics-topic-button');
 			$(this).attr('clicked', 'true');
-			physicsTopicDisplay.html(text)
+			physicsSubtopicDisplay.html(text)
 
 			if (gambleAmount !== "Pick an Amount of Coins")
 			{
