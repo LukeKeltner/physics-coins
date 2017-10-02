@@ -115,7 +115,7 @@ $('#go-for-it').on('click', function(event)
 					button1.html(correctText)
 					buttons.push(button1)
 
-					for (var i=0; i<3; i++)
+					for (var i=0; i<questionBank[r].wrong.length; i++)
 					{
 						var button = $("<button type='button' class='btn btn-default btn-block answer'></button>")
 						button.data("data-result", "wrong")
@@ -126,12 +126,13 @@ $('#go-for-it').on('click', function(event)
 
 				else if (questionBank[r].type === "text")
 				{
+					console.log(questionBank[r].wrong.length)
 					var button1 = $("<button type='button' class='btn btn-default btn-block answer'></button>")
 					button1.data("data-result", "correct")
 					button1.html(questionBank[r].correct)
 					buttons.push(button1)
 
-					for (var i=0; i<3; i++)
+					for (var i=0; i<questionBank[r].wrong.length; i++)
 					{
 						var button = $("<button type='button' class='btn btn-default btn-block answer'></button>")
 						button.data("data-result", "wrong")
@@ -156,10 +157,24 @@ $('#go-for-it').on('click', function(event)
 				var questionNumber = r+1
 				$('#question-number').html(questionNumber)
 				$('#question-text').html(questionText)
-				$('#question1Div').html(buttons[0])
+
+				console.log(buttons.length)
+
+				for (var i=0; i<4; i++)
+				{
+					var int = i+1
+					$('#question'+int+'Div').html("")
+				}
+
+				for (var i=0; i<buttons.length; i++)
+				{
+					var int = i+1
+					$('#question'+int+'Div').html(buttons[i])
+				}
+/*				$('#question1Div').html(buttons[0])
 				$('#question2Div').html(buttons[1])
 				$('#question3Div').html(buttons[2])
-				$('#question4Div').html(buttons[3])
+				$('#question4Div').html(buttons[3])*/
 			}
 		})
 	})

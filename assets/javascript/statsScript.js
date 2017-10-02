@@ -75,6 +75,7 @@ database.ref("questions").once("value").then(function(snap)
 
 			var correct = []
 			var wrong = []
+			var amountOfQuestions = 0;
 
 			for (var questionNumber in user[key])
 			{
@@ -89,7 +90,7 @@ database.ref("questions").once("value").then(function(snap)
 				}
 			}
 
-			var percent = Math.round(correct.length/(correct.length+wrong.length)*100,0)
+			var percent = Math.round(correct.length/questions[key].length*100,0)
 
 			var th = $("<th class='text-center'>"+key+"</th>")
 			var tr = $('<tr>')

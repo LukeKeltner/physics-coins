@@ -58,6 +58,41 @@ var questionBank =
 		question: "This is a test image question. A is the correct answer",
 		correct: "A",
 		wrong:["B", "C", "D"]
+	},
+
+	{
+		type: "text",
+		question: "There are only two options.  True is correct",
+		correct: "True",
+		wrong: ["False"]
+	},
+
+	{
+		type: "random",
+		question: "There are three options here.  The correct answer is rand1",
+		correct: "rand1",
+		wrong: ["rand0", "rand2"],
+		numberOfRandom: 3,
+		rand0:
+		{
+			min: 1,
+			max: 10,
+			decimal: 0
+		},
+		
+		rand1:
+		{
+			min: 1,
+			max: 10,
+			decimal: 0
+		},
+
+		rand2:
+		{
+			min: 1,
+			max: 10,
+			decimal: 0
+		}
 	}
 ]
 

@@ -1,4 +1,4 @@
-var questionBank = 
+var sAndVquestionBank = 
 [
 	{
 		type: "text",
@@ -82,7 +82,7 @@ var questionBank =
 	}
 ]
 
-database.ref("questions").set(
+database.ref("questions/1D Kinematics").update(
 {
-	"1D Kinematics": questionBank
+	"Scalars and Vectors": sAndVquestionBank
 })
