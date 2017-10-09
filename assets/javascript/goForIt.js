@@ -47,6 +47,7 @@ var getNumber = function(string, randomBank)
 $('#go-for-it').on('click', function(event)
 {
 	var topic = physicsTopicDisplay.html();
+	var subTopic = $('#subtopic-display').html()
 	var gambleAmount = gambleAmountDisplay.html()
 	gambleAmount = gambleAmount.replace(/,/g, "");
 	gambleAmount = parseInt(gambleAmount);
@@ -59,8 +60,9 @@ $('#go-for-it').on('click', function(event)
 	$('#questionModal').modal('show');
 	$('#question-topic').html(topic)
 	$('#gamble-amount').html(gambleAmount.toLocaleString())
+	console.log(subTopic)
 
-	database.ref("questions/"+topic).once("value").then(function(snap)
+	database.ref("questions/"+topic+"/"+subTopic).once("value").then(function(snap)
 	{
 		var questionBank = snap.val()
 		console.log(questionBank)
